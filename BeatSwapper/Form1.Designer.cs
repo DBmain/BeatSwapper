@@ -602,7 +602,9 @@
             this.Controls.Add(this.previewButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.openButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "BeatSwapper";
             this.Text = "BeatSwapper";
             this.groupBox1.ResumeLayout(false);

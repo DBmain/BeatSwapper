@@ -438,6 +438,7 @@ namespace BeatSwapper
                 offsetText.Enabled = true;
                 radioButton1.Enabled = true;
                 radioButton2.Enabled = true;
+                if (swappedFile == null) saveButton.Enabled = false;
                 textBox3_TextChanged(sender, e);
             }
             else
@@ -448,6 +449,7 @@ namespace BeatSwapper
                 radioButton1.Enabled = false;
                 radioButton2.Enabled = false;
                 swapButton.Enabled = false;
+                saveButton.Enabled = true;
             }
         }
 
@@ -492,7 +494,7 @@ namespace BeatSwapper
             {
                 swappedFile[i] = originalFile[i];
             }
-            for (int i = 0; i < blocks; i += 4)
+            for (int i = 0; i < blocks - 4; i += 4)
             {
                 if(radioButton1.Checked)
                 {
@@ -515,6 +517,10 @@ namespace BeatSwapper
                     }
                 }
             }
+            for(int i = 44 + offset + (blocks * swapBytes); i < originalFile.Length; i++)
+            {
+                swappedFile[i] = 0;
+            }
             textBox3.Enabled = true;
             swapButton.Enabled = true;
             checkBox1.Enabled = true;
@@ -522,6 +528,7 @@ namespace BeatSwapper
             saveButton.Enabled = true;
             openButton.Enabled = true;
             previewButton.Enabled = true;
+            saveButton.Enabled = true;
             //radioButton1.Enabled = true;
             //radioButton2.Enabled = true;            
         }
