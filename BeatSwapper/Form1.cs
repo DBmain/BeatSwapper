@@ -417,10 +417,64 @@ namespace BeatSwapper
         private void saveButton_Click(object sender, EventArgs e)
         {
             reworkFile();
-            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            string fileName = null;
+            if (checkBox1.Checked)
             {
-                if(!checkBox1.Checked) File.WriteAllBytes(saveFileDialog1.FileName, originalFile);
-                else File.WriteAllBytes(saveFileDialog1.FileName, swappedFile);
+                int i = 0;
+                do
+                {
+                    if (radioButton1.Checked)
+                    {
+                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + Path.GetExtension(textBox1.Text)))
+                        {
+                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + Path.GetExtension(textBox1.Text);
+                            break;
+                        }
+                        else i++;
+                    }
+                    else if (radioButton2.Checked)
+                    {
+                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + Path.GetExtension(textBox1.Text)))
+                        {
+                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + Path.GetExtension(textBox1.Text);
+                            break;
+                        }
+                        else i++;
+                    }
+                } while (true);
+                //if (radioButton2.Checked) fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4" + Path.GetExtension(textBox1.Text);
+                //else if (radioButton1.Checked) fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3" + Path.GetExtension(textBox1.Text);
+            }
+            else
+            {
+                int i = 0;
+                do
+                {
+                    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_" + i + Path.GetExtension(textBox1.Text)))
+                    {
+                        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_" + i + Path.GetExtension(textBox1.Text);
+                        break;
+                    }
+                    else i++;
+                } while (true);
+            }
+            saveFileDialog1.FileName = fileName;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                do
+                {
+                    try
+                    {
+                        if (!checkBox1.Checked) File.WriteAllBytes(saveFileDialog1.FileName, originalFile);
+                        else File.WriteAllBytes(saveFileDialog1.FileName, swappedFile);
+                        break;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("File is busy! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+                } while (true);
             }
         }
 
@@ -474,6 +528,12 @@ namespace BeatSwapper
             swappedFile = null;
             float bpm = Convert.ToSingle(textBox3.Text);
             reworkFile();
+            byte[] dataSizeByte = new byte[4];
+            for (int i = 0; i < 4; i++)
+            {
+                dataSizeByte[i] = originalFile[i + 40];
+            }
+            int dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
             swappedFile = new byte[originalFile.Length];
             float bps = bpm / 60;
             int swapBytes = Convert.ToInt32((1 / bps) * bytesPerSecond);
@@ -483,7 +543,6 @@ namespace BeatSwapper
                 else break;
             }
             int offset = Convert.ToInt32(Convert.ToSingle(offsetText.Text) * bytesPerSecond);
-            int dataSize = originalFile.Length - offset - 44;
             int blocks = (dataSize / swapBytes) - 4;
             for (int i = 0; i < 44; i++)
             {
@@ -517,9 +576,9 @@ namespace BeatSwapper
                     }
                 }
             }
-            for(int i = 44 + offset + (blocks * swapBytes); i < originalFile.Length; i++)
+            for(int i = 44 + offset + (blocks * swapBytes); i < dataSize + (originalFile.Length - dataSize); i++)
             {
-                swappedFile[i] = 0;
+                swappedFile[i] = originalFile[i];
             }
             textBox3.Enabled = true;
             swapButton.Enabled = true;
