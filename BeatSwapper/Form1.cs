@@ -548,19 +548,18 @@ namespace BeatSwapper
             {
                 swappedFile[i] = originalFile[i];
             }
-            //swappedFile = originalFile;
             for(int i = 44; i < offset + 44; i++)
             {
                 swappedFile[i] = originalFile[i];
             }
-            for (int i = 0; i < blocks - 4; i += 4)
+            for (int i = 0; i < blocks - (offset / swapBytes); i += 4)
             {
                 if(radioButton1.Checked)
                 {
                     for (int r = 44 + offset + (i * swapBytes); r < 44 + offset + swapBytes + (i * swapBytes); r++)
                     {
                         swappedFile[r] = originalFile[r + swapBytes + swapBytes];
-                        swappedFile[r + swapBytes + swapBytes] = originalFile[r];
+                        swappedFile[r + swapBytes + swapBytes] = originalFile[r];   
                         swappedFile[r + swapBytes] = originalFile[r + swapBytes];
                         swappedFile[r + swapBytes + swapBytes + swapBytes] = originalFile[r + swapBytes + swapBytes + swapBytes];
                     }
@@ -576,7 +575,7 @@ namespace BeatSwapper
                     }
                 }
             }
-            for(int i = 44 + offset + (blocks * swapBytes); i < dataSize + (originalFile.Length - dataSize); i++)
+            for(int i = 44 + offset + (blocks * swapBytes) - ((offset / swapBytes) * swapBytes); i < dataSize + (originalFile.Length - dataSize); i++)
             {
                 swappedFile[i] = originalFile[i];
             }
