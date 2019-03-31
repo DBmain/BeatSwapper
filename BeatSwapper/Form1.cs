@@ -518,6 +518,17 @@ namespace BeatSwapper
 
         private void swapButton_Click(object sender, EventArgs e)
         {
+            float checkBPM;
+            if(float.TryParse(textBox3.Text, out checkBPM) == false)
+            {
+                MessageBox.Show("Invalid BPM! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            if (float.TryParse(offsetText.Text, out checkBPM) == false)
+            {
+                MessageBox.Show("Invalid offset! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             textBox3.Enabled = false;
             swapButton.Enabled = false;
             checkBox1.Enabled = false;
@@ -584,7 +595,7 @@ namespace BeatSwapper
             }
             catch
             {
-                MessageBox.Show("Something wrong with WAV file! Try to convert it again or download it from another source!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             textBox3.Enabled = true;
             swapButton.Enabled = true;
