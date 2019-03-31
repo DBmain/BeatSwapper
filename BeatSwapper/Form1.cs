@@ -526,58 +526,65 @@ namespace BeatSwapper
             offsetText.Enabled = false;
             previewButton.Enabled = false;
             swappedFile = null;
-            float bpm = Convert.ToSingle(textBox3.Text);
-            reworkFile();
-            byte[] dataSizeByte = new byte[4];
-            for (int i = 0; i < 4; i++)
+            try
             {
-                dataSizeByte[i] = originalFile[i + 40];
-            }
-            int dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
-            swappedFile = new byte[originalFile.Length];
-            float bps = bpm / 60;
-            int swapBytes = Convert.ToInt32((1 / bps) * bytesPerSecond);
-            while(true)
-            {
-                if (swapBytes % (bitDepth * channels / 8) != 0) swapBytes--;
-                else break;
-            }
-            int offset = Convert.ToInt32(Convert.ToSingle(offsetText.Text) * bytesPerSecond);
-            int blocks = (dataSize / swapBytes) - 4;
-            for (int i = 0; i < 44; i++)
-            {
-                swappedFile[i] = originalFile[i];
-            }
-            for(int i = 44; i < offset + 44; i++)
-            {
-                swappedFile[i] = originalFile[i];
-            }
-            for (int i = 0; i < blocks - (offset / swapBytes); i += 4)
-            {
-                if(radioButton1.Checked)
+                float bpm = Convert.ToSingle(textBox3.Text);
+                reworkFile();
+                byte[] dataSizeByte = new byte[4];
+                for (int i = 0; i < 4; i++)
                 {
-                    for (int r = 44 + offset + (i * swapBytes); r < 44 + offset + swapBytes + (i * swapBytes); r++)
+                    dataSizeByte[i] = originalFile[i + 40];
+                }
+                int dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
+                swappedFile = new byte[originalFile.Length];
+                float bps = bpm / 60;
+                int swapBytes = Convert.ToInt32((1 / bps) * bytesPerSecond);
+                while (true)
+                {
+                    if (swapBytes % (bitDepth * channels / 8) != 0) swapBytes--;
+                    else break;
+                }
+                int offset = Convert.ToInt32(Convert.ToSingle(offsetText.Text) * bytesPerSecond);
+                int blocks = (dataSize / swapBytes) - 4;
+                for (int i = 0; i < 44; i++)
+                {
+                    swappedFile[i] = originalFile[i];
+                }
+                for (int i = 44; i < offset + 44; i++)
+                {
+                    swappedFile[i] = originalFile[i];
+                }
+                for (int i = 0; i < blocks - (offset / swapBytes); i += 4)
+                {
+                    if (radioButton1.Checked)
                     {
-                        swappedFile[r] = originalFile[r + swapBytes + swapBytes];
-                        swappedFile[r + swapBytes + swapBytes] = originalFile[r];   
-                        swappedFile[r + swapBytes] = originalFile[r + swapBytes];
-                        swappedFile[r + swapBytes + swapBytes + swapBytes] = originalFile[r + swapBytes + swapBytes + swapBytes];
+                        for (int r = 44 + offset + (i * swapBytes); r < 44 + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r] = originalFile[r + swapBytes + swapBytes];
+                            swappedFile[r + swapBytes + swapBytes] = originalFile[r];
+                            swappedFile[r + swapBytes] = originalFile[r + swapBytes];
+                            swappedFile[r + swapBytes + swapBytes + swapBytes] = originalFile[r + swapBytes + swapBytes + swapBytes];
+                        }
+                    }
+                    else if (radioButton2.Checked)
+                    {
+                        for (int r = 44 + offset + (i * swapBytes); r < 44 + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r + swapBytes] = originalFile[r + swapBytes + swapBytes + swapBytes];
+                            swappedFile[r + swapBytes + swapBytes + swapBytes] = originalFile[r + swapBytes];
+                            swappedFile[r] = originalFile[r];
+                            swappedFile[r + swapBytes + swapBytes] = originalFile[r + swapBytes + swapBytes];
+                        }
                     }
                 }
-                else if(radioButton2.Checked)
+                for (int i = 44 + offset + (blocks * swapBytes) - ((offset / swapBytes) * swapBytes); i < dataSize + (originalFile.Length - dataSize); i++)
                 {
-                    for (int r = 44 + offset + (i * swapBytes); r < 44 + offset + swapBytes + (i * swapBytes); r++)
-                    {
-                        swappedFile[r + swapBytes] = originalFile[r + swapBytes + swapBytes + swapBytes];
-                        swappedFile[r + swapBytes + swapBytes + swapBytes] = originalFile[r + swapBytes];
-                        swappedFile[r] = originalFile[r];
-                        swappedFile[r + swapBytes + swapBytes] = originalFile[r + swapBytes + swapBytes];
-                    }
+                    swappedFile[i] = originalFile[i];
                 }
             }
-            for(int i = 44 + offset + (blocks * swapBytes) - ((offset / swapBytes) * swapBytes); i < dataSize + (originalFile.Length - dataSize); i++)
+            catch
             {
-                swappedFile[i] = originalFile[i];
+                MessageBox.Show("Something wrong with WAV file! Try to convert it again or download it from another source!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             textBox3.Enabled = true;
             swapButton.Enabled = true;
