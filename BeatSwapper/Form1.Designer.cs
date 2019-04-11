@@ -88,7 +88,7 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.Filter = "WAV file|*.wav";
+            this.openFileDialog1.Filter = "Audio files|*.wav;*.mp3";
             // 
             // textBox1
             // 
