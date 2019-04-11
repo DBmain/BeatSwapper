@@ -611,7 +611,7 @@ namespace BeatSwapper
 
         private void offsetText_TextChanged(object sender, EventArgs e)
         {
-            if (offsetText.Text == "") offsetText.Text = "0";
+            //if (offsetText.Text == "") offsetText.Text = "0";
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
