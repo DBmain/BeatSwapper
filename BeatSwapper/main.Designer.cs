@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BeatSwapper));
             this.openButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -71,6 +72,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.about = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -88,7 +90,7 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.Filter = "Audio files|*.wav;*.mp3";
+            this.openFileDialog1.Filter = "Audio files|*.wav;*.mp3;*.flac";
             // 
             // textBox1
             // 
@@ -481,7 +483,7 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "WAV file|*.wav";
+            this.saveFileDialog1.Filter = "WAV file|*.wav|MP3 file|*.mp3";
             // 
             // checkBox1
             // 
@@ -662,6 +664,7 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button about;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

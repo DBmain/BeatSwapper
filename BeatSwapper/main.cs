@@ -19,6 +19,9 @@ namespace BeatSwapper
         byte channels;
         int bytesPerSecond;
         int dataStartOffset = 0;
+        int dataSize;
+
+        public static int mp3Bitrate;
 
         public BeatSwapper()
         {
@@ -117,10 +120,21 @@ namespace BeatSwapper
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 stopPreview_Click(sender, e);
-                if(Path.GetExtension(openFileDialog1.FileName) == ".wav") originalFile = File.ReadAllBytes(openFileDialog1.FileName);
-                else if(Path.GetExtension(openFileDialog1.FileName) == ".mp3")
+                if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".wav") originalFile = File.ReadAllBytes(openFileDialog1.FileName);
+                else if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".mp3")
                 {
                     using (var reader = new NAudio.Wave.Mp3FileReader(openFileDialog1.FileName))
+                    {
+                        using (MemoryStream wavCreate = new MemoryStream())
+                        {
+                            NAudio.Wave.WaveFileWriter.WriteWavFileToStream(wavCreate, reader);
+                            originalFile = wavCreate.ToArray();
+                        }
+                    }
+                }
+                else if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".flac")
+                {
+                    using (var reader = new NAudio.Wave.MediaFoundationReader(openFileDialog1.FileName))
                     {
                         using (MemoryStream wavCreate = new MemoryStream())
                         {
@@ -178,6 +192,25 @@ namespace BeatSwapper
                 {
                     frequency[i] = originalFile[i + 24];
                 }
+                byte[] dataSizeByte = new byte[4];
+                if (originalFile[35] == 0 && originalFile[36] == 100 && originalFile[37] == 97 && originalFile[38] == 116 && originalFile[39] == 97) dataStartOffset = 0;
+                else
+                {
+                    for (int i = 1; i < originalFile.Length - 4; i++)
+                    {
+                        if (originalFile[35 + i] == 0 && originalFile[36 + i] == 100 && originalFile[37 + i] == 97 && originalFile[38 + i] == 116 && originalFile[39 + i] == 97)
+                        {
+                            dataStartOffset = i;
+                            break;
+                        }
+                        else continue;
+                    }
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    dataSizeByte[i] = originalFile[i + dataStartOffset + 40];
+                }
+                dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
                 textBox1.Text = openFileDialog1.FileName;
                 freq = LEtoDecByte(frequency);
                 textBox2.Text = freq;
@@ -426,14 +459,18 @@ namespace BeatSwapper
         {
             reworkFile();
             string fileName = null;
+            if (Path.GetExtension(textBox1.Text).ToLower() == ".wav" || Path.GetExtension(textBox1.Text).ToLower() == ".flac") saveFileDialog1.FilterIndex = 1;
+            else if (Path.GetExtension(textBox1.Text).ToLower() == ".mp3") saveFileDialog1.FilterIndex = 2;
             if (checkBox1.Checked)
             {
                 int i = 0;
                 do
                 {
+                    string extension = Path.GetExtension(textBox1.Text);
+                    if (extension == ".flac") extension = ".wav";
                     if (radioButton1.Checked)
                     {
-                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + Path.GetExtension(textBox1.Text)))
+                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + extension))
                         {
                             fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + Path.GetExtension(textBox1.Text);
                             break;
@@ -442,7 +479,7 @@ namespace BeatSwapper
                     }
                     else if (radioButton2.Checked)
                     {
-                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + Path.GetExtension(textBox1.Text)))
+                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + extension))
                         {
                             fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + Path.GetExtension(textBox1.Text);
                             break;
@@ -471,17 +508,42 @@ namespace BeatSwapper
             {
                 do
                 {
-                    try
-                    {
-                        if (!checkBox1.Checked) File.WriteAllBytes(saveFileDialog1.FileName, originalFile);
-                        else File.WriteAllBytes(saveFileDialog1.FileName, swappedFile);
+                    //try
+                    //{
+                        if (saveFileDialog1.FilterIndex == 1)
+                        {
+                            if (!checkBox1.Checked) File.WriteAllBytes(saveFileDialog1.FileName, originalFile);
+                            else File.WriteAllBytes(saveFileDialog1.FileName, swappedFile);
+                        }
+                        else if(saveFileDialog1.FilterIndex == 2)
+                        {
+                            bitrate bit = new bitrate();
+                            bit.ShowDialog();
+                            if (bit.DialogResult == DialogResult.Cancel) return;
+                            NAudio.MediaFoundation.MediaFoundationInterop.MFStartup(0);
+                            WaveFormat wav = new WaveFormat(Convert.ToInt32(freq), channels);
+                            if (!checkBox1.Checked)
+                            {
+                                using (var writer = new NAudio.Wave.RawSourceWaveStream(originalFile, 44 + dataStartOffset, dataSize, wav))
+                                {
+                                    NAudio.Wave.MediaFoundationEncoder.EncodeToMp3(writer, saveFileDialog1.FileName, mp3Bitrate);
+                                }
+                            }
+                            else
+                            {
+                                using (var writer = new NAudio.Wave.RawSourceWaveStream(swappedFile, 44 + dataStartOffset, dataSize, wav))
+                                {
+                                    NAudio.Wave.MediaFoundationEncoder.EncodeToMp3(writer, saveFileDialog1.FileName, mp3Bitrate);
+                                }
+                            }
+                        }
                         break;
-                    }
-                    catch
-                    {
-                        MessageBox.Show("File is busy! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
-                    }
+                    //}
+                    //catch
+                    //{
+                    //    MessageBox.Show("File is busy! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //    return;
+                    //}
                 } while (true);
             }
         }
@@ -549,26 +611,6 @@ namespace BeatSwapper
             {
                 float bpm = Convert.ToSingle(textBox3.Text);
                 reworkFile();
-                byte[] dataSizeByte = new byte[4];
-                if (originalFile[35] == 0 && originalFile[36] == 100 && originalFile[37] == 97 && originalFile[38] == 116 && originalFile[39] == 97) dataStartOffset = 0;
-                else
-                {
-                    for (int i = 1; i < originalFile.Length - 4; i++)
-                    {
-                    //if (Encoding.UTF8.GetString(originalFile, 40 + i, 4) != "data") continue;
-                        if (originalFile[35 + i] == 0 && originalFile[36 + i] == 100 && originalFile[37 + i] == 97 && originalFile[38 + i] == 116 && originalFile[39 + i] == 97)
-                        {
-                            dataStartOffset = i;
-                            break;
-                        }
-                        else continue;         
-                    }
-                }
-                for (int i = 0; i < 4; i++)
-                {
-                    dataSizeByte[i] = originalFile[i + dataStartOffset + 40];
-                }
-                int dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
                 swappedFile = new byte[originalFile.Length];
                 float bps = bpm / 60;
                 int swapBytes = Convert.ToInt32((1 / bps) * bytesPerSecond);
@@ -617,7 +659,7 @@ namespace BeatSwapper
                         }
                     }
                 }
-                for (int i = 44 + dataStartOffset + offset + (blocks * swapBytes) - ((offset / swapBytes) * swapBytes); i < dataSize + (originalFile.Length - dataSize); i++)
+                for (int i = 44 + dataStartOffset + offset + (blocks * swapBytes) - ((offset / swapBytes) * swapBytes); i < originalFile.Length; i++)
                 {
                     swappedFile[i] = originalFile[i];
                 }
