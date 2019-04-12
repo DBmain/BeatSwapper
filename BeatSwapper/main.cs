@@ -508,8 +508,8 @@ namespace BeatSwapper
             {
                 do
                 {
-                    //try
-                    //{
+                    try
+                    {
                         if (saveFileDialog1.FilterIndex == 1)
                         {
                             if (!checkBox1.Checked) File.WriteAllBytes(saveFileDialog1.FileName, originalFile);
@@ -538,12 +538,12 @@ namespace BeatSwapper
                             }
                         }
                         break;
-                    //}
-                    //catch
-                    //{
-                    //    MessageBox.Show("File is busy! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    //    return;
-                    //}
+                    }
+                    catch
+                    {
+                        MessageBox.Show("File is busy, or there's an error! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
                 } while (true);
             }
         }
