@@ -80,9 +80,9 @@
             // 
             // openButton
             // 
-            this.openButton.Location = new System.Drawing.Point(506, 12);
+            this.openButton.Location = new System.Drawing.Point(228, 5);
             this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(75, 23);
+            this.openButton.Size = new System.Drawing.Size(41, 23);
             this.openButton.TabIndex = 0;
             this.openButton.Text = "Open";
             this.openButton.UseVisualStyleBackColor = true;
@@ -94,33 +94,33 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 14);
+            this.textBox1.Location = new System.Drawing.Point(7, 7);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(488, 20);
+            this.textBox1.Size = new System.Drawing.Size(219, 20);
             this.textBox1.TabIndex = 1;
             // 
             // previewButton
             // 
             this.previewButton.Enabled = false;
-            this.previewButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.previewButton.Location = new System.Drawing.Point(13, 117);
+            this.previewButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.previewButton.Location = new System.Drawing.Point(164, 109);
             this.previewButton.Name = "previewButton";
-            this.previewButton.Size = new System.Drawing.Size(122, 64);
+            this.previewButton.Size = new System.Drawing.Size(31, 31);
             this.previewButton.TabIndex = 2;
-            this.previewButton.Text = "PLAY";
+            this.previewButton.Text = "▶";
             this.previewButton.UseVisualStyleBackColor = true;
             this.previewButton.Click += new System.EventHandler(this.previewButton_Click);
             // 
             // stopPreview
             // 
             this.stopPreview.Enabled = false;
-            this.stopPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.stopPreview.Location = new System.Drawing.Point(141, 117);
+            this.stopPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.stopPreview.Location = new System.Drawing.Point(195, 109);
             this.stopPreview.Name = "stopPreview";
-            this.stopPreview.Size = new System.Drawing.Size(81, 64);
+            this.stopPreview.Size = new System.Drawing.Size(31, 31);
             this.stopPreview.TabIndex = 3;
-            this.stopPreview.Text = "Stop";
+            this.stopPreview.Text = "■";
             this.stopPreview.UseVisualStyleBackColor = true;
             this.stopPreview.Click += new System.EventHandler(this.stopPreview_Click);
             // 
@@ -130,7 +130,7 @@
             this.groupBox1.Controls.Add(this.twentyFourBit);
             this.groupBox1.Controls.Add(this.DimaBachilo);
             this.groupBox1.Controls.Add(this.eightBit);
-            this.groupBox1.Location = new System.Drawing.Point(141, 40);
+            this.groupBox1.Location = new System.Drawing.Point(136, 30);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(86, 71);
             this.groupBox1.TabIndex = 4;
@@ -197,7 +197,7 @@
             this.groupBox2.Controls.Add(this.fiveCh);
             this.groupBox2.Controls.Add(this.threeCh);
             this.groupBox2.Controls.Add(this.oneCh);
-            this.groupBox2.Location = new System.Drawing.Point(12, 40);
+            this.groupBox2.Location = new System.Drawing.Point(7, 30);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(123, 71);
             this.groupBox2.TabIndex = 5;
@@ -288,27 +288,28 @@
             this.groupBox3.Controls.Add(this.oneNineTwoKhz);
             this.groupBox3.Controls.Add(this.oneSevenSixKhz);
             this.groupBox3.Controls.Add(this.ninetySixKhz);
-            this.groupBox3.Controls.Add(this.eightyEightKhz);
-            this.groupBox3.Controls.Add(this.twentyFourKhz);
-            this.groupBox3.Controls.Add(this.fourtyEightKhz);
-            this.groupBox3.Controls.Add(this.twelweKhz);
             this.groupBox3.Controls.Add(this.elevenKhz);
             this.groupBox3.Controls.Add(this.eightKhz);
-            this.groupBox3.Controls.Add(this.fourtyFourKhz);
             this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Controls.Add(this.twelweKhz);
             this.groupBox3.Controls.Add(this.twentyTwoKhz);
-            this.groupBox3.Location = new System.Drawing.Point(233, 40);
+            this.groupBox3.Controls.Add(this.twentyFourKhz);
+            this.groupBox3.Controls.Add(this.fourtyFourKhz);
+            this.groupBox3.Controls.Add(this.fourtyEightKhz);
+            this.groupBox3.Controls.Add(this.eightyEightKhz);
+            this.groupBox3.Location = new System.Drawing.Point(228, 30);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(197, 141);
+            this.groupBox3.Size = new System.Drawing.Size(137, 155);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Frequency";
+            this.groupBox3.Enter += new System.EventHandler(this.GroupBox3_Enter);
             // 
             // threeFourEightKhz
             // 
             this.threeFourEightKhz.AutoSize = true;
             this.threeFourEightKhz.Enabled = false;
-            this.threeFourEightKhz.Location = new System.Drawing.Point(135, 113);
+            this.threeFourEightKhz.Location = new System.Drawing.Point(71, 134);
             this.threeFourEightKhz.Name = "threeFourEightKhz";
             this.threeFourEightKhz.Size = new System.Drawing.Size(61, 17);
             this.threeFourEightKhz.TabIndex = 12;
@@ -321,7 +322,7 @@
             // 
             this.oneNineTwoKhz.AutoSize = true;
             this.oneNineTwoKhz.Enabled = false;
-            this.oneNineTwoKhz.Location = new System.Drawing.Point(68, 113);
+            this.oneNineTwoKhz.Location = new System.Drawing.Point(6, 134);
             this.oneNineTwoKhz.Name = "oneNineTwoKhz";
             this.oneNineTwoKhz.Size = new System.Drawing.Size(61, 17);
             this.oneNineTwoKhz.TabIndex = 11;
@@ -334,7 +335,7 @@
             // 
             this.oneSevenSixKhz.AutoSize = true;
             this.oneSevenSixKhz.Enabled = false;
-            this.oneSevenSixKhz.Location = new System.Drawing.Point(6, 113);
+            this.oneSevenSixKhz.Location = new System.Drawing.Point(71, 115);
             this.oneSevenSixKhz.Name = "oneSevenSixKhz";
             this.oneSevenSixKhz.Size = new System.Drawing.Size(61, 17);
             this.oneSevenSixKhz.TabIndex = 10;
@@ -347,7 +348,7 @@
             // 
             this.ninetySixKhz.AutoSize = true;
             this.ninetySixKhz.Enabled = false;
-            this.ninetySixKhz.Location = new System.Drawing.Point(135, 90);
+            this.ninetySixKhz.Location = new System.Drawing.Point(6, 115);
             this.ninetySixKhz.Name = "ninetySixKhz";
             this.ninetySixKhz.Size = new System.Drawing.Size(55, 17);
             this.ninetySixKhz.TabIndex = 9;
@@ -360,7 +361,7 @@
             // 
             this.eightyEightKhz.AutoSize = true;
             this.eightyEightKhz.Enabled = false;
-            this.eightyEightKhz.Location = new System.Drawing.Point(68, 90);
+            this.eightyEightKhz.Location = new System.Drawing.Point(71, 96);
             this.eightyEightKhz.Name = "eightyEightKhz";
             this.eightyEightKhz.Size = new System.Drawing.Size(55, 17);
             this.eightyEightKhz.TabIndex = 8;
@@ -373,7 +374,7 @@
             // 
             this.twentyFourKhz.AutoSize = true;
             this.twentyFourKhz.Enabled = false;
-            this.twentyFourKhz.Location = new System.Drawing.Point(68, 67);
+            this.twentyFourKhz.Location = new System.Drawing.Point(6, 77);
             this.twentyFourKhz.Name = "twentyFourKhz";
             this.twentyFourKhz.Size = new System.Drawing.Size(55, 17);
             this.twentyFourKhz.TabIndex = 7;
@@ -386,7 +387,7 @@
             // 
             this.fourtyEightKhz.AutoSize = true;
             this.fourtyEightKhz.Enabled = false;
-            this.fourtyEightKhz.Location = new System.Drawing.Point(6, 90);
+            this.fourtyEightKhz.Location = new System.Drawing.Point(6, 96);
             this.fourtyEightKhz.Name = "fourtyEightKhz";
             this.fourtyEightKhz.Size = new System.Drawing.Size(55, 17);
             this.fourtyEightKhz.TabIndex = 5;
@@ -399,7 +400,7 @@
             // 
             this.twelweKhz.AutoSize = true;
             this.twelweKhz.Enabled = false;
-            this.twelweKhz.Location = new System.Drawing.Point(135, 44);
+            this.twelweKhz.Location = new System.Drawing.Point(6, 58);
             this.twelweKhz.Name = "twelweKhz";
             this.twelweKhz.Size = new System.Drawing.Size(55, 17);
             this.twelweKhz.TabIndex = 6;
@@ -412,7 +413,7 @@
             // 
             this.elevenKhz.AutoSize = true;
             this.elevenKhz.Enabled = false;
-            this.elevenKhz.Location = new System.Drawing.Point(68, 44);
+            this.elevenKhz.Location = new System.Drawing.Point(71, 39);
             this.elevenKhz.Name = "elevenKhz";
             this.elevenKhz.Size = new System.Drawing.Size(55, 17);
             this.elevenKhz.TabIndex = 2;
@@ -425,7 +426,7 @@
             // 
             this.eightKhz.AutoSize = true;
             this.eightKhz.Enabled = false;
-            this.eightKhz.Location = new System.Drawing.Point(6, 44);
+            this.eightKhz.Location = new System.Drawing.Point(6, 39);
             this.eightKhz.Name = "eightKhz";
             this.eightKhz.Size = new System.Drawing.Size(49, 17);
             this.eightKhz.TabIndex = 1;
@@ -438,7 +439,7 @@
             // 
             this.fourtyFourKhz.AutoSize = true;
             this.fourtyFourKhz.Enabled = false;
-            this.fourtyFourKhz.Location = new System.Drawing.Point(135, 67);
+            this.fourtyFourKhz.Location = new System.Drawing.Point(71, 77);
             this.fourtyFourKhz.Name = "fourtyFourKhz";
             this.fourtyFourKhz.Size = new System.Drawing.Size(55, 17);
             this.fourtyFourKhz.TabIndex = 4;
@@ -452,7 +453,7 @@
             this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(6, 15);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(184, 20);
+            this.textBox2.Size = new System.Drawing.Size(117, 20);
             this.textBox2.TabIndex = 0;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
@@ -461,7 +462,7 @@
             // 
             this.twentyTwoKhz.AutoSize = true;
             this.twentyTwoKhz.Enabled = false;
-            this.twentyTwoKhz.Location = new System.Drawing.Point(6, 67);
+            this.twentyTwoKhz.Location = new System.Drawing.Point(71, 58);
             this.twentyTwoKhz.Name = "twentyTwoKhz";
             this.twentyTwoKhz.Size = new System.Drawing.Size(55, 17);
             this.twentyTwoKhz.TabIndex = 3;
@@ -473,9 +474,9 @@
             // saveButton
             // 
             this.saveButton.Enabled = false;
-            this.saveButton.Location = new System.Drawing.Point(527, 35);
+            this.saveButton.Location = new System.Drawing.Point(270, 5);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(54, 23);
+            this.saveButton.Size = new System.Drawing.Size(40, 23);
             this.saveButton.TabIndex = 7;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -489,7 +490,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(436, 41);
+            this.checkBox1.Location = new System.Drawing.Point(9, 104);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(82, 17);
             this.checkBox1.TabIndex = 8;
@@ -500,7 +501,7 @@
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(436, 117);
+            this.textBox3.Location = new System.Drawing.Point(97, 119);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(64, 20);
             this.textBox3.TabIndex = 9;
@@ -509,7 +510,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(436, 101);
+            this.label1.Location = new System.Drawing.Point(97, 103);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 10;
@@ -519,10 +520,10 @@
             // swapButton
             // 
             this.swapButton.Enabled = false;
-            this.swapButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.swapButton.Location = new System.Drawing.Point(506, 117);
+            this.swapButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.swapButton.Location = new System.Drawing.Point(164, 149);
             this.swapButton.Name = "swapButton";
-            this.swapButton.Size = new System.Drawing.Size(75, 67);
+            this.swapButton.Size = new System.Drawing.Size(62, 36);
             this.swapButton.TabIndex = 11;
             this.swapButton.Text = "Swap!";
             this.swapButton.UseVisualStyleBackColor = true;
@@ -531,7 +532,7 @@
             // offsetText
             // 
             this.offsetText.Enabled = false;
-            this.offsetText.Location = new System.Drawing.Point(436, 161);
+            this.offsetText.Location = new System.Drawing.Point(97, 163);
             this.offsetText.Name = "offsetText";
             this.offsetText.Size = new System.Drawing.Size(64, 20);
             this.offsetText.TabIndex = 12;
@@ -541,7 +542,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(436, 145);
+            this.label2.Location = new System.Drawing.Point(97, 147);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 13;
@@ -552,7 +553,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
             this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(448, 60);
+            this.radioButton1.Location = new System.Drawing.Point(21, 123);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(61, 17);
             this.radioButton1.TabIndex = 14;
@@ -564,7 +565,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(448, 81);
+            this.radioButton2.Location = new System.Drawing.Point(21, 144);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(61, 17);
             this.radioButton2.TabIndex = 15;
@@ -574,7 +575,7 @@
             // 
             // about
             // 
-            this.about.Location = new System.Drawing.Point(527, 91);
+            this.about.Location = new System.Drawing.Point(311, 5);
             this.about.Name = "about";
             this.about.Size = new System.Drawing.Size(54, 23);
             this.about.TabIndex = 16;
@@ -586,7 +587,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 185);
+            this.ClientSize = new System.Drawing.Size(370, 190);
+            this.Controls.Add(this.previewButton);
             this.Controls.Add(this.about);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
@@ -601,7 +603,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.stopPreview);
-            this.Controls.Add(this.previewButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.openButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -609,6 +610,7 @@
             this.MaximizeBox = false;
             this.Name = "BeatSwapper";
             this.Text = "BeatSwapper";
+            this.Load += new System.EventHandler(this.BeatSwapper_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -692,7 +692,17 @@ namespace BeatSwapper
 
         private void about_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("BeatSwapper\nWritten by Denis \"DB\" Boyarchuk\nt.me/russkiypoopforever\ngithub.com/DBmain/BeatSwapper", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("BeatSwapper\nWritten by Denis \"DB\" Boyarchuk\nt.me/russkiypoopforever\ngithub.com/DBmain/BeatSwapper\n\nNAudio library by naudio\nhttps://github.com/naudio/naudio", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void GroupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BeatSwapper_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
