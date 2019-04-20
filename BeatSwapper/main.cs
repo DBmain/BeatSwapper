@@ -212,6 +212,8 @@ namespace BeatSwapper
                 }
                 dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
                 textBox1.Text = openFileDialog1.FileName;
+                textBox1.Select(textBox1.Text.Length, 0);
+                textBox1.ScrollToCaret();
                 freq = LEtoDecByte(frequency);
                 textBox2.Text = freq;
                 enableButtons(true);
@@ -461,18 +463,18 @@ namespace BeatSwapper
             string fileName = null;
             if (Path.GetExtension(textBox1.Text).ToLower() == ".wav" || Path.GetExtension(textBox1.Text).ToLower() == ".flac") saveFileDialog1.FilterIndex = 1;
             else if (Path.GetExtension(textBox1.Text).ToLower() == ".mp3") saveFileDialog1.FilterIndex = 2;
+            string extension = Path.GetExtension(textBox1.Text);
+            if (extension == ".flac") extension = ".wav";
             if (checkBox1.Checked)
             {
                 int i = 0;
                 do
                 {
-                    string extension = Path.GetExtension(textBox1.Text);
-                    if (extension == ".flac") extension = ".wav";
                     if (radioButton1.Checked)
                     {
                         if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + extension))
                         {
-                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + Path.GetExtension(textBox1.Text);
+                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3_" + i + extension;
                             break;
                         }
                         else i++;
@@ -481,7 +483,7 @@ namespace BeatSwapper
                     {
                         if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + extension))
                         {
-                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + Path.GetExtension(textBox1.Text);
+                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4_" + i + extension;
                             break;
                         }
                         else i++;
@@ -495,9 +497,9 @@ namespace BeatSwapper
                 int i = 0;
                 do
                 {
-                    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_" + i + Path.GetExtension(textBox1.Text)))
+                    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + "_" + i + extension))
                     {
-                        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_" + i + Path.GetExtension(textBox1.Text);
+                        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_" + i + extension;
                         break;
                     }
                     else i++;

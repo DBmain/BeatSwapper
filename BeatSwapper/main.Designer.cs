@@ -52,15 +52,15 @@
             this.oneNineTwoKhz = new System.Windows.Forms.RadioButton();
             this.oneSevenSixKhz = new System.Windows.Forms.RadioButton();
             this.ninetySixKhz = new System.Windows.Forms.RadioButton();
-            this.eightyEightKhz = new System.Windows.Forms.RadioButton();
-            this.twentyFourKhz = new System.Windows.Forms.RadioButton();
-            this.fourtyEightKhz = new System.Windows.Forms.RadioButton();
-            this.twelweKhz = new System.Windows.Forms.RadioButton();
             this.elevenKhz = new System.Windows.Forms.RadioButton();
             this.eightKhz = new System.Windows.Forms.RadioButton();
-            this.fourtyFourKhz = new System.Windows.Forms.RadioButton();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.twelweKhz = new System.Windows.Forms.RadioButton();
             this.twentyTwoKhz = new System.Windows.Forms.RadioButton();
+            this.twentyFourKhz = new System.Windows.Forms.RadioButton();
+            this.fourtyFourKhz = new System.Windows.Forms.RadioButton();
+            this.fourtyEightKhz = new System.Windows.Forms.RadioButton();
+            this.eightyEightKhz = new System.Windows.Forms.RadioButton();
             this.saveButton = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -357,58 +357,6 @@
             this.ninetySixKhz.UseVisualStyleBackColor = true;
             this.ninetySixKhz.CheckedChanged += new System.EventHandler(this.ninetySixKhz_CheckedChanged);
             // 
-            // eightyEightKhz
-            // 
-            this.eightyEightKhz.AutoSize = true;
-            this.eightyEightKhz.Enabled = false;
-            this.eightyEightKhz.Location = new System.Drawing.Point(71, 96);
-            this.eightyEightKhz.Name = "eightyEightKhz";
-            this.eightyEightKhz.Size = new System.Drawing.Size(55, 17);
-            this.eightyEightKhz.TabIndex = 8;
-            this.eightyEightKhz.TabStop = true;
-            this.eightyEightKhz.Text = "88200";
-            this.eightyEightKhz.UseVisualStyleBackColor = true;
-            this.eightyEightKhz.CheckedChanged += new System.EventHandler(this.eightyEightKhz_CheckedChanged);
-            // 
-            // twentyFourKhz
-            // 
-            this.twentyFourKhz.AutoSize = true;
-            this.twentyFourKhz.Enabled = false;
-            this.twentyFourKhz.Location = new System.Drawing.Point(6, 77);
-            this.twentyFourKhz.Name = "twentyFourKhz";
-            this.twentyFourKhz.Size = new System.Drawing.Size(55, 17);
-            this.twentyFourKhz.TabIndex = 7;
-            this.twentyFourKhz.TabStop = true;
-            this.twentyFourKhz.Text = "24000";
-            this.twentyFourKhz.UseVisualStyleBackColor = true;
-            this.twentyFourKhz.CheckedChanged += new System.EventHandler(this.twentyFourKhz_CheckedChanged);
-            // 
-            // fourtyEightKhz
-            // 
-            this.fourtyEightKhz.AutoSize = true;
-            this.fourtyEightKhz.Enabled = false;
-            this.fourtyEightKhz.Location = new System.Drawing.Point(6, 96);
-            this.fourtyEightKhz.Name = "fourtyEightKhz";
-            this.fourtyEightKhz.Size = new System.Drawing.Size(55, 17);
-            this.fourtyEightKhz.TabIndex = 5;
-            this.fourtyEightKhz.TabStop = true;
-            this.fourtyEightKhz.Text = "48000";
-            this.fourtyEightKhz.UseVisualStyleBackColor = true;
-            this.fourtyEightKhz.CheckedChanged += new System.EventHandler(this.fourtyEightKhz_CheckedChanged);
-            // 
-            // twelweKhz
-            // 
-            this.twelweKhz.AutoSize = true;
-            this.twelweKhz.Enabled = false;
-            this.twelweKhz.Location = new System.Drawing.Point(6, 58);
-            this.twelweKhz.Name = "twelweKhz";
-            this.twelweKhz.Size = new System.Drawing.Size(55, 17);
-            this.twelweKhz.TabIndex = 6;
-            this.twelweKhz.TabStop = true;
-            this.twelweKhz.Text = "12000";
-            this.twelweKhz.UseVisualStyleBackColor = true;
-            this.twelweKhz.CheckedChanged += new System.EventHandler(this.twelweKhz_CheckedChanged);
-            // 
             // elevenKhz
             // 
             this.elevenKhz.AutoSize = true;
@@ -435,19 +383,6 @@
             this.eightKhz.UseVisualStyleBackColor = true;
             this.eightKhz.CheckedChanged += new System.EventHandler(this.eightKhz_CheckedChanged);
             // 
-            // fourtyFourKhz
-            // 
-            this.fourtyFourKhz.AutoSize = true;
-            this.fourtyFourKhz.Enabled = false;
-            this.fourtyFourKhz.Location = new System.Drawing.Point(71, 77);
-            this.fourtyFourKhz.Name = "fourtyFourKhz";
-            this.fourtyFourKhz.Size = new System.Drawing.Size(55, 17);
-            this.fourtyFourKhz.TabIndex = 4;
-            this.fourtyFourKhz.TabStop = true;
-            this.fourtyFourKhz.Text = "44100";
-            this.fourtyFourKhz.UseVisualStyleBackColor = true;
-            this.fourtyFourKhz.CheckedChanged += new System.EventHandler(this.fourtyFourKhz_CheckedChanged);
-            // 
             // textBox2
             // 
             this.textBox2.Enabled = false;
@@ -457,6 +392,19 @@
             this.textBox2.TabIndex = 0;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
+            // 
+            // twelweKhz
+            // 
+            this.twelweKhz.AutoSize = true;
+            this.twelweKhz.Enabled = false;
+            this.twelweKhz.Location = new System.Drawing.Point(6, 58);
+            this.twelweKhz.Name = "twelweKhz";
+            this.twelweKhz.Size = new System.Drawing.Size(55, 17);
+            this.twelweKhz.TabIndex = 6;
+            this.twelweKhz.TabStop = true;
+            this.twelweKhz.Text = "12000";
+            this.twelweKhz.UseVisualStyleBackColor = true;
+            this.twelweKhz.CheckedChanged += new System.EventHandler(this.twelweKhz_CheckedChanged);
             // 
             // twentyTwoKhz
             // 
@@ -470,6 +418,58 @@
             this.twentyTwoKhz.Text = "22050";
             this.twentyTwoKhz.UseVisualStyleBackColor = true;
             this.twentyTwoKhz.CheckedChanged += new System.EventHandler(this.twentyTwoKhz_CheckedChanged);
+            // 
+            // twentyFourKhz
+            // 
+            this.twentyFourKhz.AutoSize = true;
+            this.twentyFourKhz.Enabled = false;
+            this.twentyFourKhz.Location = new System.Drawing.Point(6, 77);
+            this.twentyFourKhz.Name = "twentyFourKhz";
+            this.twentyFourKhz.Size = new System.Drawing.Size(55, 17);
+            this.twentyFourKhz.TabIndex = 7;
+            this.twentyFourKhz.TabStop = true;
+            this.twentyFourKhz.Text = "24000";
+            this.twentyFourKhz.UseVisualStyleBackColor = true;
+            this.twentyFourKhz.CheckedChanged += new System.EventHandler(this.twentyFourKhz_CheckedChanged);
+            // 
+            // fourtyFourKhz
+            // 
+            this.fourtyFourKhz.AutoSize = true;
+            this.fourtyFourKhz.Enabled = false;
+            this.fourtyFourKhz.Location = new System.Drawing.Point(71, 77);
+            this.fourtyFourKhz.Name = "fourtyFourKhz";
+            this.fourtyFourKhz.Size = new System.Drawing.Size(55, 17);
+            this.fourtyFourKhz.TabIndex = 4;
+            this.fourtyFourKhz.TabStop = true;
+            this.fourtyFourKhz.Text = "44100";
+            this.fourtyFourKhz.UseVisualStyleBackColor = true;
+            this.fourtyFourKhz.CheckedChanged += new System.EventHandler(this.fourtyFourKhz_CheckedChanged);
+            // 
+            // fourtyEightKhz
+            // 
+            this.fourtyEightKhz.AutoSize = true;
+            this.fourtyEightKhz.Enabled = false;
+            this.fourtyEightKhz.Location = new System.Drawing.Point(6, 96);
+            this.fourtyEightKhz.Name = "fourtyEightKhz";
+            this.fourtyEightKhz.Size = new System.Drawing.Size(55, 17);
+            this.fourtyEightKhz.TabIndex = 5;
+            this.fourtyEightKhz.TabStop = true;
+            this.fourtyEightKhz.Text = "48000";
+            this.fourtyEightKhz.UseVisualStyleBackColor = true;
+            this.fourtyEightKhz.CheckedChanged += new System.EventHandler(this.fourtyEightKhz_CheckedChanged);
+            // 
+            // eightyEightKhz
+            // 
+            this.eightyEightKhz.AutoSize = true;
+            this.eightyEightKhz.Enabled = false;
+            this.eightyEightKhz.Location = new System.Drawing.Point(71, 96);
+            this.eightyEightKhz.Name = "eightyEightKhz";
+            this.eightyEightKhz.Size = new System.Drawing.Size(55, 17);
+            this.eightyEightKhz.TabIndex = 8;
+            this.eightyEightKhz.TabStop = true;
+            this.eightyEightKhz.Text = "88200";
+            this.eightyEightKhz.UseVisualStyleBackColor = true;
+            this.eightyEightKhz.CheckedChanged += new System.EventHandler(this.eightyEightKhz_CheckedChanged);
             // 
             // saveButton
             // 
