@@ -473,6 +473,7 @@ namespace BeatSwapper
             if (Path.GetExtension(textBox1.Text).ToLower() == ".wav" || Path.GetExtension(textBox1.Text).ToLower() == ".flac") saveFileDialog1.FilterIndex = 1;
             else if (Path.GetExtension(textBox1.Text).ToLower() == ".mp3") saveFileDialog1.FilterIndex = 2;
             string extension = Path.GetExtension(textBox1.Text);
+            saveFileDialog1.InitialDirectory = Path.GetDirectoryName(textBox1.Text);
             if (extension == ".flac") extension = ".wav";
             if (checkBox1.Checked)
             {
@@ -568,7 +569,7 @@ namespace BeatSwapper
                     }
                     catch
                     {
-                        MessageBox.Show("File is busy, or there's an error! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("File is busy, or there's an error! Try again or choose another name!\nIf you saving to MP3 and using Windows 7, choose WAV!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 } while (true);
