@@ -165,7 +165,7 @@ namespace BeatSwapper
                         sixCh.Checked = true;
                         break;
                     default:
-                        MessageBox.Show("Invalid WAV file!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("Invalid WAV file!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                 }
                 bitDepth = originalFile[34];
@@ -184,7 +184,7 @@ namespace BeatSwapper
                         thirtyTwoBit.Checked = true;
                         break;
                     default:
-                        MessageBox.Show("Invalid WAV file!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("Invalid WAV file!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                 }
                 byte[] frequency = new byte[4];
@@ -227,6 +227,12 @@ namespace BeatSwapper
 
         private void previewButton_Click(object sender, EventArgs e)
         {
+            if(Convert.ToInt32(freq) < 1000)
+            {
+                MessageBox.Show("Minimal frequency is 1000! Changing it!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                freq = "1000";
+                textBox2.Text = "1000";
+            }
             reworkFile();
             if(channels > 2)
             {
@@ -282,8 +288,11 @@ namespace BeatSwapper
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            //if(textBox2.Text != "") if (Convert.ToInt32(textBox2.Text) > 999999) textBox2.Text = "999999";
             try
             {
+                if (Convert.ToInt32(textBox2.Text) > 999999) textBox2.Text = "999999";
+                //if (Convert.ToInt32(textBox2.Text) < 1000) textBox2.Text = "999999";
                 switch (Convert.ToInt32(textBox2.Text))
                 {
                     case 8000:
@@ -301,7 +310,7 @@ namespace BeatSwapper
                     case 44100:
                         fourtyFourKhz.Checked = true;
                         break;
-                    case 4800:
+                    case 48000:
                         fourtyEightKhz.Checked = true;
                         break;
                     case 88200:
@@ -336,7 +345,7 @@ namespace BeatSwapper
             {
                 if (textBox2.Text == "")
                 {
-                    freq = "0";
+                    freq = "1000";
                 }
                 else
                 {
@@ -394,7 +403,7 @@ namespace BeatSwapper
 
         private void oneSevenSixKhz_CheckedChanged(object sender, EventArgs e)
         {
-            if (oneSevenSixKhz.Checked) textBox2.Text = "176000";
+            if (oneSevenSixKhz.Checked) textBox2.Text = "176400";
         }
 
         private void oneNineTwoKhz_CheckedChanged(object sender, EventArgs e)
@@ -508,6 +517,7 @@ namespace BeatSwapper
             saveFileDialog1.FileName = fileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                reworkFile();
                 do
                 {
                     try
@@ -519,6 +529,21 @@ namespace BeatSwapper
                         }
                         else if(saveFileDialog1.FilterIndex == 2)
                         {
+                            if(Convert.ToInt32(freq) != 44100 && Convert.ToInt32(freq)!= 48000)
+                            {
+                                MessageBox.Show("Saving into MP3 possible only with 44100 and 48000 Hz! Save it into WAV and convert it with another programm!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            if(bitDepth != 16)
+                            {
+                                MessageBox.Show("Saving into MP3 possible only with 16 bits! Save it into WAV and convert it with another programm!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            if(channels > 2)
+                            {
+                                MessageBox.Show("Saving into MP3 possible only with 1 and 2 channels! Save it into WAV and convert it with another programm!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                             bitrate bit = new bitrate();
                             bit.ShowDialog();
                             if (bit.DialogResult == DialogResult.Cancel) return;
@@ -543,7 +568,7 @@ namespace BeatSwapper
                     }
                     catch
                     {
-                        MessageBox.Show("File is busy, or there's an error! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("File is busy, or there's an error! Try again or choose another name!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 } while (true);
@@ -593,12 +618,12 @@ namespace BeatSwapper
             float checkBPM;
             if(float.TryParse(textBox3.Text, out checkBPM) == false)
             {
-                MessageBox.Show("Invalid BPM! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Invalid BPM! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (float.TryParse(offsetText.Text, out checkBPM) == false)
             {
-                MessageBox.Show("Invalid offset! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Invalid offset! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             textBox3.Enabled = false;
@@ -668,7 +693,7 @@ namespace BeatSwapper
             }
             catch
             {
-                MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             textBox3.Enabled = true;
             swapButton.Enabled = true;
