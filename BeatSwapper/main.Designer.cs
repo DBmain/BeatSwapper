@@ -73,6 +73,7 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.about = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.reverse = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -490,7 +491,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(9, 104);
+            this.checkBox1.Location = new System.Drawing.Point(7, 103);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(82, 17);
             this.checkBox1.TabIndex = 8;
@@ -553,7 +554,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
             this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(21, 123);
+            this.radioButton1.Location = new System.Drawing.Point(22, 123);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(61, 17);
             this.radioButton1.TabIndex = 14;
@@ -565,7 +566,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(21, 144);
+            this.radioButton2.Location = new System.Drawing.Point(22, 144);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(61, 17);
             this.radioButton2.TabIndex = 15;
@@ -583,11 +584,24 @@
             this.about.UseVisualStyleBackColor = true;
             this.about.Click += new System.EventHandler(this.about_Click);
             // 
+            // reverse
+            // 
+            this.reverse.AutoSize = true;
+            this.reverse.Enabled = false;
+            this.reverse.Location = new System.Drawing.Point(7, 168);
+            this.reverse.Name = "reverse";
+            this.reverse.Size = new System.Drawing.Size(66, 17);
+            this.reverse.TabIndex = 17;
+            this.reverse.Text = "Reverse";
+            this.reverse.UseVisualStyleBackColor = true;
+            this.reverse.CheckedChanged += new System.EventHandler(this.Reverse_CheckedChanged);
+            // 
             // BeatSwapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 190);
+            this.Controls.Add(this.reverse);
             this.Controls.Add(this.previewButton);
             this.Controls.Add(this.about);
             this.Controls.Add(this.radioButton2);
@@ -667,6 +681,7 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button about;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox reverse;
     }
 }
 
