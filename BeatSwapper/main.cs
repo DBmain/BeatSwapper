@@ -60,11 +60,7 @@ namespace BeatSwapper
         {
             ref byte[] rework = ref originalFile;
             if (reverse.Checked && !checkBox1.Checked) rework = ref reversedFile;
-            else if (checkBox1.Checked)
-            {
-                if (swappedFile == null) return;
-                rework = ref swappedFile;
-            }
+            else if (checkBox1.Checked && swappedFile != null) rework = ref swappedFile;
             bytesPerSecond = channels * bitDepth * Convert.ToInt32(freq) / 8;
             char[] bpsTemp = bytesPerSecond.ToString("X8").ToCharArray();
             byte[] bps = LEtoDecChar(bpsTemp);
@@ -550,7 +546,6 @@ namespace BeatSwapper
             saveFileDialog1.FileName = fileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                reworkFile();
                 do
                 {
                     try
@@ -635,6 +630,7 @@ namespace BeatSwapper
 
         private void swapButton_Click(object sender, EventArgs e)
         {
+            reworkFile();
             float checkBPM;
             if(float.TryParse(textBox3.Text, out checkBPM) == false)
             {
@@ -655,12 +651,11 @@ namespace BeatSwapper
             previewButton.Enabled = false;
             reverse.Enabled = false;
             swappedFile = null;
-            try
-            {
+            //try
+            //{
                 ref byte[] workingBytes = ref originalFile;
                 if (reverse.Checked) workingBytes = ref reversedFile;
                 float bpm = Convert.ToSingle(textBox3.Text);
-                reworkFile();
                 swappedFile = new byte[workingBytes.Length];
                 float bps = bpm / 60;
                 int swapBytes = Convert.ToInt32((1 / bps) * bytesPerSecond);
@@ -706,11 +701,11 @@ namespace BeatSwapper
                 {
                     swappedFile[i] = workingBytes[i];
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
             textBox3.Enabled = true;
             swapButton.Enabled = true;
             checkBox1.Enabled = true;
