@@ -10,6 +10,9 @@ namespace BeatSwapper
 {
     public partial class BeatSwapper : Form
     {
+        [System.Runtime.InteropServices.DllImport("psapi.dll")]
+        static extern int EmptyWorkingSet(IntPtr hwProc);
+
         byte[] originalFile;
         byte[] swappedFile;
         byte[] reversedFile;
@@ -23,6 +26,18 @@ namespace BeatSwapper
         int dataSize;
 
         public static int mp3Bitrate;
+
+        void clearram()
+        {
+            try
+            {
+                EmptyWorkingSet(System.Diagnostics.Process.GetCurrentProcess().Handle);
+            }
+            catch
+            {
+            }
+            return;
+        }
 
         public BeatSwapper()
         {
@@ -82,6 +97,7 @@ namespace BeatSwapper
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                clearram();
                 stopPreview_Click(sender, e);
                 if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".wav") originalFile = File.ReadAllBytes(openFileDialog1.FileName);
                 else if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".mp3")
@@ -239,6 +255,7 @@ namespace BeatSwapper
                 preview = new SoundPlayer(ms);
                 preview.Play();
             }
+            clearram();
         }
 
         private void stopPreview_Click(object sender, EventArgs e)
@@ -266,6 +283,7 @@ namespace BeatSwapper
             }
             stopPreview.Enabled = false;
             previewButton.Enabled = true;
+            clearram();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -546,6 +564,7 @@ namespace BeatSwapper
                     }
                 } while (true);
             }
+            clearram();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -610,8 +629,8 @@ namespace BeatSwapper
             previewButton.Enabled = false;
             reverse.Enabled = false;
             swappedFile = null;
-            //try
-            //{
+            try
+            {
                 ref byte[] workingBytes = ref originalFile;
                 if (reverse.Checked) workingBytes = ref reversedFile;
                 float bpm = Convert.ToSingle(textBox3.Text);
@@ -660,11 +679,11 @@ namespace BeatSwapper
                 {
                     swappedFile[i] = workingBytes[i];
                 }
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            }
+            catch
+            {
+                MessageBox.Show("Something wrong with WAV file or BPM/offset! Try to convert it again or download it from another source or change BPM/offset!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             textBox3.Enabled = true;
             swapButton.Enabled = true;
             checkBox1.Enabled = true;
@@ -674,6 +693,7 @@ namespace BeatSwapper
             previewButton.Enabled = true;
             saveButton.Enabled = true;
             reverse.Enabled = true;
+            clearram();
             //radioButton1.Enabled = true;
             //radioButton2.Enabled = true;            
         }
@@ -745,6 +765,7 @@ namespace BeatSwapper
             }
             swappedFile = null;
             if (checkBox1.Checked) saveButton.Enabled = false;
+            clearram();
         }
     }
 }
