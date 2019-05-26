@@ -62,61 +62,20 @@ namespace BeatSwapper
             if (reverse.Checked && !checkBox1.Checked) rework = ref reversedFile;
             else if (checkBox1.Checked && swappedFile != null) rework = ref swappedFile;
             bytesPerSecond = channels * bitDepth * Convert.ToInt32(freq) / 8;
-            char[] bpsTemp = bytesPerSecond.ToString("X8").ToCharArray();
-            byte[] bps = LEtoDecChar(bpsTemp);
+            byte[] bps = BitConverter.GetBytes(bytesPerSecond);
             for (int i = 0; i < 4; i++)
             {
                 rework[i + 28] = bps[i];
             }
             rework[22] = channels;
             rework[34] = bitDepth;
-            char[] freqTemp = Convert.ToInt32(freq).ToString("X8").ToCharArray();
-            byte[] freqOutput = LEtoDecChar(freqTemp);
+            byte[] freqOutput = BitConverter.GetBytes(Convert.ToInt32(freq));
             for(int i = 0; i < 4; i++)
             {
                 rework[i + 24] = freqOutput[i];
             }
             rework[32] = Convert.ToByte((bitDepth * channels) / 8);
             return;
-        }
-
-        static string LEtoDecByte(byte[] littleEndian)
-        {
-            string leStr = "";
-            for(int i = 0; i < 4; i++)
-            {
-                leStr = leStr + littleEndian[i].ToString("X2");
-            }
-            char[] leCharOrig = leStr.ToCharArray();
-            char[] leCharFin = new char[8];
-            int o = 7;
-            for (int i = 0; i < 8; i += 2)
-            {
-                leCharFin[i] = leCharOrig[o - 1];
-                if (i < 7) leCharFin[i + 1] = leCharOrig[o];
-                o -= 2;
-            }
-            return int.Parse(new string(leCharFin), System.Globalization.NumberStyles.HexNumber).ToString();
-        }
-
-        static byte[] LEtoDecChar(char[] input)
-        {
-            byte[] output = new byte[4];
-            char[] temp = new char[8];
-            byte o = 7;
-            for (int i = 0; i < 8; i += 2)
-            {
-                temp[i] = input[o - 1];
-                if (i < 7) temp[i + 1] = input[o];
-                o -= 2;
-            }
-            byte d = 0;
-            for (o = 0; o < 7; o += 2)
-            {
-                output[d] = byte.Parse(temp[o].ToString() + temp[o + 1].ToString(), System.Globalization.NumberStyles.HexNumber);
-                d++;
-            }
-            return output;
         }
 
         private void openButton_Click(object sender, EventArgs e)
@@ -212,13 +171,13 @@ namespace BeatSwapper
                 }
                 for (int i = 0; i < 4; i++)
                 {
-                    dataSizeByte[i] = originalFile[i + dataStartOffset + 40];
+                    dataSizeByte[i] = originalFile[i + 40 + dataStartOffset];
                 }
-                dataSize = Convert.ToInt32(LEtoDecByte(dataSizeByte));
+                dataSize = BitConverter.ToInt32(dataSizeByte, 0);
                 textBox1.Text = openFileDialog1.FileName;
                 textBox1.Select(textBox1.Text.Length, 0);
                 textBox1.ScrollToCaret();
-                freq = LEtoDecByte(frequency);
+                freq = Convert.ToString(BitConverter.ToInt32(frequency, 0));
                 textBox2.Text = freq;
                 enableButtons(true);
                 checkBox1.Enabled = true;
@@ -789,3 +748,47 @@ namespace BeatSwapper
         }
     }
 }
+
+
+
+
+
+//    old code
+        /* static string LEtoDecByte(byte[] littleEndian)
+        {
+            string leStr = "";
+            for(int i = 0; i < 4; i++)
+            {
+                leStr = leStr + littleEndian[i].ToString("X2");
+            }
+            char[] leCharOrig = leStr.ToCharArray();
+            char[] leCharFin = new char[8];
+            int o = 7;
+            for (int i = 0; i < 8; i += 2)
+            {
+                leCharFin[i] = leCharOrig[o - 1];
+                if (i < 7) leCharFin[i + 1] = leCharOrig[o];
+                o -= 2;
+            }
+            return int.Parse(new string(leCharFin), System.Globalization.NumberStyles.HexNumber).ToString();
+        }
+
+        static byte[] LEtoDecChar(char[] input)
+        {
+            byte[] output = new byte[4];
+            char[] temp = new char[8];
+            byte o = 7;
+            for (int i = 0; i < 8; i += 2)
+            {
+                temp[i] = input[o - 1];
+                if (i < 7) temp[i + 1] = input[o];
+                o -= 2;
+            }
+            byte d = 0;
+            for (o = 0; o < 7; o += 2)
+            {
+                output[d] = byte.Parse(temp[o].ToString() + temp[o + 1].ToString(), System.Globalization.NumberStyles.HexNumber);
+                d++;
+            }
+            return output;
+        } */
