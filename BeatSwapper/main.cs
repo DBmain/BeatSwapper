@@ -15,7 +15,7 @@ namespace BeatSwapper
 
         byte[] originalFile;
         byte[] swappedFile;
-        byte[] reversedFile;
+        //byte[] reversedFile;
         SoundPlayer preview;
 
         string freq;
@@ -74,8 +74,8 @@ namespace BeatSwapper
         void reworkFile()
         {
             ref byte[] rework = ref originalFile;
-            if (reverse.Checked && !checkBox1.Checked) rework = ref reversedFile;
-            else if (checkBox1.Checked && swappedFile != null) rework = ref swappedFile;
+            //if (reverse.Checked && !checkBox1.Checked) rework = ref reversedFile;
+            if (checkBox1.Checked && swappedFile != null) rework = ref swappedFile;
             bytesPerSecond = channels * bitDepth * Convert.ToInt32(freq) / 8;
             byte[] bps = BitConverter.GetBytes(bytesPerSecond);
             for (int i = 0; i < 4; i++)
@@ -199,9 +199,9 @@ namespace BeatSwapper
                 checkBox1.Enabled = true;
                 previewButton.Enabled = true;
                 saveButton.Enabled = true;
-                reverse.Enabled = true;
+                //reverse.Enabled = true;
                 checkBox1.Checked = false;
-                reverse.Checked = false;
+                //reverse.Checked = false;
                 swappedFile = null;
             }
         }
@@ -210,7 +210,7 @@ namespace BeatSwapper
         {
             ref byte[] playing = ref originalFile;
             if (checkBox1.Checked) playing = ref swappedFile;
-            if (!checkBox1.Checked && reverse.Checked) playing = ref reversedFile;
+            //if (!checkBox1.Checked && reverse.Checked) playing = ref reversedFile;
             if (playing == null)
             {
                 MessageBox.Show("You didn't swapped beats!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -228,12 +228,12 @@ namespace BeatSwapper
                 MessageBox.Show("This application can't preview track with 3+ channels! You can only save it!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (!checkBox1.Checked && !reverse.Checked)
+            if (!checkBox1.Checked) // && !reverse.Checked
             {
                 checkBox1.Enabled = false;
-                reverse.Enabled = false;
+                //reverse.Enabled = false;
             }
-            else if(checkBox1.Checked && !reverse.Checked)
+            else if(checkBox1.Checked) // && !reverse.Checked
             {
                 checkBox1.Enabled = false;
                 radioButton1.Enabled = false;
@@ -241,12 +241,12 @@ namespace BeatSwapper
                 textBox3.Enabled = false;
                 offsetText.Enabled = false;
                 swapButton.Enabled = false;
-                reverse.Enabled = false;
+                //reverse.Enabled = false;
             }
             else
             {
                 checkBox1.Enabled = false;
-                reverse.Enabled = false;
+                //reverse.Enabled = false;
             }
             stopPreview.Enabled = true;
             previewButton.Enabled = false;
@@ -261,7 +261,7 @@ namespace BeatSwapper
         private void stopPreview_Click(object sender, EventArgs e)
         {
             if(preview != null) preview.Stop();
-            if(checkBox1.Checked && !reverse.Checked)
+            if(checkBox1.Checked) // && !reverse.Checked
             {
                 checkBox1.Enabled = true;
                 radioButton1.Enabled = true;
@@ -269,17 +269,17 @@ namespace BeatSwapper
                 textBox3.Enabled = true;
                 offsetText.Enabled = true;
                 swapButton.Enabled = true;
-                reverse.Enabled = true;
+                //reverse.Enabled = true;
             }
-            else if(!checkBox1.Checked && !reverse.Checked)
+            else if(!checkBox1.Checked) // && !reverse.Checked
             {
                 checkBox1.Enabled = true;
-                reverse.Enabled = true;
+                //reverse.Enabled = true;
             }
             else
             {
                 checkBox1.Enabled = true;
-                reverse.Enabled = true;
+                //reverse.Enabled = true;
             }
             stopPreview.Enabled = false;
             previewButton.Enabled = true;
@@ -471,8 +471,8 @@ namespace BeatSwapper
             reworkFile();
             ref byte[] write = ref originalFile;
             string reversedName = null;
-            if (reverse.Checked) reversedName = "_reversed";
-            if (reverse.Checked && !checkBox1.Checked) write = ref reversedFile;
+            //if (reverse.Checked) reversedName = "_reversed";
+            //if (reverse.Checked && !checkBox1.Checked) write = ref reversedFile;
             if (checkBox1.Checked) write = swappedFile;
             string fileName = null;
             if (Path.GetExtension(textBox1.Text).ToLower() == ".wav" || Path.GetExtension(textBox1.Text).ToLower() == ".flac") saveFileDialog1.FilterIndex = 1;
@@ -627,12 +627,12 @@ namespace BeatSwapper
             openButton.Enabled = false;
             offsetText.Enabled = false;
             previewButton.Enabled = false;
-            reverse.Enabled = false;
+            //reverse.Enabled = false;
             swappedFile = null;
             try
             {
                 ref byte[] workingBytes = ref originalFile;
-                if (reverse.Checked) workingBytes = ref reversedFile;
+                //if (reverse.Checked) workingBytes = ref reversedFile;
                 float bpm = Convert.ToSingle(textBox3.Text);
                 swappedFile = new byte[workingBytes.Length];
                 float bps = bpm / 60;
@@ -692,7 +692,7 @@ namespace BeatSwapper
             openButton.Enabled = true;
             previewButton.Enabled = true;
             saveButton.Enabled = true;
-            reverse.Enabled = true;
+            //reverse.Enabled = true;
             clearram();
             //radioButton1.Enabled = true;
             //radioButton2.Enabled = true;            
@@ -725,47 +725,67 @@ namespace BeatSwapper
 
         private void Reverse_CheckedChanged(object sender, EventArgs e)
         {
-            bool radioEnabled = false;
-            if (checkBox1.Checked) radioEnabled = true;
-            checkBox1.Enabled = false;
-            saveButton.Enabled = false;
-            openButton.Enabled = false;
-            previewButton.Enabled = false;
-            reversedFile = new byte[originalFile.Length];
-            if (radioEnabled)
-            {
-                swapButton.Enabled = false;
-                radioButton1.Enabled = false; 
-                radioButton2.Enabled = false;
-                textBox3.Enabled = false;
-                offsetText.Enabled = false;
-            }
-            if (reverse.Checked)
-            {
-                for (int i = 0; i < 44 + dataStartOffset; i++)
-                {
-                    reversedFile[i] = originalFile[i];
-                }
-                for(int i = 44 + dataStartOffset; i < 44 + dataStartOffset + dataSize; i++)
-                {
-                    reversedFile[i] = originalFile[44 + dataStartOffset + dataSize - i];
-                }
-            }
-            checkBox1.Enabled = true;
-            saveButton.Enabled = true;
-            openButton.Enabled = true;
-            previewButton.Enabled = true;
-            if (radioEnabled)
-            {
-                radioButton1.Enabled = true;
-                radioButton2.Enabled = true;
-                swapButton.Enabled = true;
-                textBox3.Enabled = true;
-                offsetText.Enabled = true;
-            }
-            swappedFile = null;
-            if (checkBox1.Checked) saveButton.Enabled = false;
-            clearram();
+            //bool radioEnabled = false;
+            //if (checkBox1.Checked) radioEnabled = true;
+            //checkBox1.Enabled = false;
+            //saveButton.Enabled = false;
+            //openButton.Enabled = false;
+            //previewButton.Enabled = false;
+            //reversedFile = new byte[originalFile.Length];
+            //if (radioEnabled)
+            //{
+            //    swapButton.Enabled = false;
+            //    radioButton1.Enabled = false; 
+            //    radioButton2.Enabled = false;
+            //    textBox3.Enabled = false;
+            //    offsetText.Enabled = false;
+            //}
+            //if (reverse.Checked)
+            //{
+            //    for (int i = 0; i < 44 + dataStartOffset; i++)
+            //    {
+            //        reversedFile[i] = originalFile[i];
+            //    }
+            //    if (bitDepth == 16)
+            //    {
+            //        for (int i = 44 + dataStartOffset; i < 44 + dataStartOffset + dataSize; i += 2)
+            //        {
+            //            reversedFile[i] = originalFile[87 + dataStartOffset + dataSize - (i + 1)];
+            //            reversedFile[i + 1] = originalFile[87 + dataStartOffset + dataSize - i];
+            //        }
+            //    }
+            //    else if(bitDepth == 24)
+            //    {
+            //        for (int i = 44 + dataStartOffset; i < 44 + dataStartOffset + dataSize; i += 3)
+            //        {
+            //            reversedFile[i] = originalFile[87 + dataStartOffset + dataSize - (i + 2)];
+            //            reversedFile[i + 2] = originalFile[87 + dataStartOffset + dataSize - i];
+            //        }
+            //    }
+                
+            //    /*reversedFile = originalFile;
+            //    Array.Reverse(reversedFile, 44 + dataStartOffset, dataSize);*/
+            //}
+            //checkBox1.Enabled = true;
+            //saveButton.Enabled = true;
+            //openButton.Enabled = true;
+            //previewButton.Enabled = true;
+            //if (radioEnabled)
+            //{
+            //    radioButton1.Enabled = true;
+            //    radioButton2.Enabled = true;
+            //    swapButton.Enabled = true;
+            //    textBox3.Enabled = true;
+            //    offsetText.Enabled = true;
+            //}
+            //swappedFile = null;
+            //if (checkBox1.Checked) saveButton.Enabled = false;
+            //clearram();
+        }
+
+        private void Reverse_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hope I'll fix it soon! :p", "Not working :C");
         }
     }
 }

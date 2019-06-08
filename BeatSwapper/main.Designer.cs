@@ -595,6 +595,7 @@
             this.reverse.Text = "Reverse";
             this.reverse.UseVisualStyleBackColor = true;
             this.reverse.CheckedChanged += new System.EventHandler(this.Reverse_CheckedChanged);
+            this.reverse.Click += new System.EventHandler(this.Reverse_Click);
             // 
             // BeatSwapper
             // 
