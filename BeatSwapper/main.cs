@@ -473,7 +473,7 @@ namespace BeatSwapper
             string reversedName = null;
             //if (reverse.Checked) reversedName = "_reversed";
             //if (reverse.Checked && !checkBox1.Checked) write = ref reversedFile;
-            if (checkBox1.Checked) write = swappedFile;
+            if (checkBox1.Checked) write = ref swappedFile;
             string fileName = null;
             if (Path.GetExtension(textBox1.Text).ToLower() == ".wav" || Path.GetExtension(textBox1.Text).ToLower() == ".flac") saveFileDialog1.FilterIndex = 1;
             else if (Path.GetExtension(textBox1.Text).ToLower() == ".mp3") saveFileDialog1.FilterIndex = 2;
