@@ -5,6 +5,8 @@ using System.Media;
 using NAudio;
 using NAudio.Wave;
 using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BeatSwapper
 {
@@ -99,7 +101,8 @@ namespace BeatSwapper
             {
                 clearram();
                 stopPreview_Click(sender, e);
-                if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".wav") originalFile = File.ReadAllBytes(openFileDialog1.FileName);
+                byte[] tempOriginalFile = null;
+                if (Path.GetExtension(openFileDialog1.FileName).ToLower() == ".wav") originalFile = File.ReadAllBytes(openFileDialog1.FileName);
                 else if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".mp3")
                 {
                     using (var reader = new NAudio.Wave.Mp3FileReader(openFileDialog1.FileName))
@@ -107,7 +110,8 @@ namespace BeatSwapper
                         using (MemoryStream wavCreate = new MemoryStream())
                         {
                             NAudio.Wave.WaveFileWriter.WriteWavFileToStream(wavCreate, reader);
-                            originalFile = wavCreate.ToArray();
+                            tempOriginalFile = wavCreate.ToArray();
+                            
                         }
                     }
                 }
@@ -118,11 +122,26 @@ namespace BeatSwapper
                         using (MemoryStream wavCreate = new MemoryStream())
                         {
                             NAudio.Wave.WaveFileWriter.WriteWavFileToStream(wavCreate, reader);
-                            originalFile = wavCreate.ToArray();
+                            tempOriginalFile = wavCreate.ToArray();
                         }
                     }
                 }
+                if(Path.GetExtension(openFileDialog1.FileName).ToLower() == ".mp3" || Path.GetExtension(openFileDialog1.FileName).ToLower() == ".flac")
+                {
+                    originalFile = new byte[tempOriginalFile.Length - 2];
+                    Array.Copy(tempOriginalFile, 0, originalFile, 0, 35);
+                    Array.Copy(tempOriginalFile, 37, originalFile, 35, tempOriginalFile.Length - 37);
+                    originalFile[16] = 16;
+                    byte[] chunk = BitConverter.GetBytes(BitConverter.ToInt32(originalFile, 4) - 2);
+                    for(int i = 4; i < 8; i++)
+                    {
+                        originalFile[i] = chunk[i - 4];
+                    }
+                    //originalFile[4] = Convert.ToByte(Convert.ToInt32(originalFile[4] - 2));
+                    tempOriginalFile = null;
+                }
                 channels = originalFile[22];
+
                 switch(channels)
                 {
                     case 1:
