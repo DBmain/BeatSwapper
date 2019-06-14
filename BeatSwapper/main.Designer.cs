@@ -69,14 +69,16 @@
             this.swapButton = new System.Windows.Forms.Button();
             this.offsetText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.about = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.reverse = new System.Windows.Forms.CheckBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // openButton
@@ -99,7 +101,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(219, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBox1.TabIndex = 35;
             // 
             // previewButton
             // 
@@ -108,7 +110,7 @@
             this.previewButton.Location = new System.Drawing.Point(164, 109);
             this.previewButton.Name = "previewButton";
             this.previewButton.Size = new System.Drawing.Size(31, 31);
-            this.previewButton.TabIndex = 2;
+            this.previewButton.TabIndex = 9;
             this.previewButton.Text = "▶";
             this.previewButton.UseVisualStyleBackColor = true;
             this.previewButton.Click += new System.EventHandler(this.previewButton_Click);
@@ -120,7 +122,7 @@
             this.stopPreview.Location = new System.Drawing.Point(195, 109);
             this.stopPreview.Name = "stopPreview";
             this.stopPreview.Size = new System.Drawing.Size(31, 31);
-            this.stopPreview.TabIndex = 3;
+            this.stopPreview.TabIndex = 10;
             this.stopPreview.Text = "■";
             this.stopPreview.UseVisualStyleBackColor = true;
             this.stopPreview.Click += new System.EventHandler(this.stopPreview_Click);
@@ -134,7 +136,7 @@
             this.groupBox1.Location = new System.Drawing.Point(136, 30);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(86, 71);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bit depth";
             // 
@@ -145,7 +147,7 @@
             this.thirtyTwoBit.Location = new System.Drawing.Point(44, 44);
             this.thirtyTwoBit.Name = "thirtyTwoBit";
             this.thirtyTwoBit.Size = new System.Drawing.Size(37, 17);
-            this.thirtyTwoBit.TabIndex = 3;
+            this.thirtyTwoBit.TabIndex = 20;
             this.thirtyTwoBit.TabStop = true;
             this.thirtyTwoBit.Text = "32";
             this.thirtyTwoBit.UseVisualStyleBackColor = true;
@@ -158,7 +160,7 @@
             this.twentyFourBit.Location = new System.Drawing.Point(7, 44);
             this.twentyFourBit.Name = "twentyFourBit";
             this.twentyFourBit.Size = new System.Drawing.Size(37, 17);
-            this.twentyFourBit.TabIndex = 2;
+            this.twentyFourBit.TabIndex = 19;
             this.twentyFourBit.TabStop = true;
             this.twentyFourBit.Text = "24";
             this.twentyFourBit.UseVisualStyleBackColor = true;
@@ -171,7 +173,7 @@
             this.DimaBachilo.Location = new System.Drawing.Point(44, 19);
             this.DimaBachilo.Name = "DimaBachilo";
             this.DimaBachilo.Size = new System.Drawing.Size(37, 17);
-            this.DimaBachilo.TabIndex = 1;
+            this.DimaBachilo.TabIndex = 18;
             this.DimaBachilo.TabStop = true;
             this.DimaBachilo.Text = "16";
             this.DimaBachilo.UseVisualStyleBackColor = true;
@@ -184,7 +186,7 @@
             this.eightBit.Location = new System.Drawing.Point(7, 20);
             this.eightBit.Name = "eightBit";
             this.eightBit.Size = new System.Drawing.Size(31, 17);
-            this.eightBit.TabIndex = 0;
+            this.eightBit.TabIndex = 17;
             this.eightBit.TabStop = true;
             this.eightBit.Text = "8";
             this.eightBit.UseVisualStyleBackColor = true;
@@ -201,7 +203,7 @@
             this.groupBox2.Location = new System.Drawing.Point(7, 30);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(123, 71);
-            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabIndex = 36;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Channels";
             // 
@@ -212,7 +214,7 @@
             this.sixCh.Location = new System.Drawing.Point(82, 44);
             this.sixCh.Name = "sixCh";
             this.sixCh.Size = new System.Drawing.Size(31, 17);
-            this.sixCh.TabIndex = 5;
+            this.sixCh.TabIndex = 16;
             this.sixCh.TabStop = true;
             this.sixCh.Text = "6";
             this.sixCh.UseVisualStyleBackColor = true;
@@ -225,7 +227,7 @@
             this.fourCh.Location = new System.Drawing.Point(7, 44);
             this.fourCh.Name = "fourCh";
             this.fourCh.Size = new System.Drawing.Size(31, 17);
-            this.fourCh.TabIndex = 4;
+            this.fourCh.TabIndex = 14;
             this.fourCh.TabStop = true;
             this.fourCh.Text = "4";
             this.fourCh.UseVisualStyleBackColor = true;
@@ -238,7 +240,7 @@
             this.twoCh.Location = new System.Drawing.Point(45, 20);
             this.twoCh.Name = "twoCh";
             this.twoCh.Size = new System.Drawing.Size(31, 17);
-            this.twoCh.TabIndex = 3;
+            this.twoCh.TabIndex = 12;
             this.twoCh.TabStop = true;
             this.twoCh.Text = "2";
             this.twoCh.UseVisualStyleBackColor = true;
@@ -251,7 +253,7 @@
             this.fiveCh.Location = new System.Drawing.Point(44, 44);
             this.fiveCh.Name = "fiveCh";
             this.fiveCh.Size = new System.Drawing.Size(31, 17);
-            this.fiveCh.TabIndex = 2;
+            this.fiveCh.TabIndex = 15;
             this.fiveCh.TabStop = true;
             this.fiveCh.Text = "5";
             this.fiveCh.UseVisualStyleBackColor = true;
@@ -264,7 +266,7 @@
             this.threeCh.Location = new System.Drawing.Point(82, 20);
             this.threeCh.Name = "threeCh";
             this.threeCh.Size = new System.Drawing.Size(31, 17);
-            this.threeCh.TabIndex = 1;
+            this.threeCh.TabIndex = 13;
             this.threeCh.TabStop = true;
             this.threeCh.Text = "3";
             this.threeCh.UseVisualStyleBackColor = true;
@@ -277,7 +279,7 @@
             this.oneCh.Location = new System.Drawing.Point(7, 20);
             this.oneCh.Name = "oneCh";
             this.oneCh.Size = new System.Drawing.Size(31, 17);
-            this.oneCh.TabIndex = 0;
+            this.oneCh.TabIndex = 11;
             this.oneCh.TabStop = true;
             this.oneCh.Text = "1";
             this.oneCh.UseVisualStyleBackColor = true;
@@ -301,7 +303,7 @@
             this.groupBox3.Location = new System.Drawing.Point(228, 30);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(137, 155);
-            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabIndex = 38;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Frequency";
             this.groupBox3.Enter += new System.EventHandler(this.GroupBox3_Enter);
@@ -313,7 +315,7 @@
             this.threeFourEightKhz.Location = new System.Drawing.Point(71, 134);
             this.threeFourEightKhz.Name = "threeFourEightKhz";
             this.threeFourEightKhz.Size = new System.Drawing.Size(61, 17);
-            this.threeFourEightKhz.TabIndex = 12;
+            this.threeFourEightKhz.TabIndex = 33;
             this.threeFourEightKhz.TabStop = true;
             this.threeFourEightKhz.Text = "384000";
             this.threeFourEightKhz.UseVisualStyleBackColor = true;
@@ -326,7 +328,7 @@
             this.oneNineTwoKhz.Location = new System.Drawing.Point(6, 134);
             this.oneNineTwoKhz.Name = "oneNineTwoKhz";
             this.oneNineTwoKhz.Size = new System.Drawing.Size(61, 17);
-            this.oneNineTwoKhz.TabIndex = 11;
+            this.oneNineTwoKhz.TabIndex = 32;
             this.oneNineTwoKhz.TabStop = true;
             this.oneNineTwoKhz.Text = "192000";
             this.oneNineTwoKhz.UseVisualStyleBackColor = true;
@@ -339,7 +341,7 @@
             this.oneSevenSixKhz.Location = new System.Drawing.Point(71, 115);
             this.oneSevenSixKhz.Name = "oneSevenSixKhz";
             this.oneSevenSixKhz.Size = new System.Drawing.Size(61, 17);
-            this.oneSevenSixKhz.TabIndex = 10;
+            this.oneSevenSixKhz.TabIndex = 31;
             this.oneSevenSixKhz.TabStop = true;
             this.oneSevenSixKhz.Text = "176400";
             this.oneSevenSixKhz.UseVisualStyleBackColor = true;
@@ -352,7 +354,7 @@
             this.ninetySixKhz.Location = new System.Drawing.Point(6, 115);
             this.ninetySixKhz.Name = "ninetySixKhz";
             this.ninetySixKhz.Size = new System.Drawing.Size(55, 17);
-            this.ninetySixKhz.TabIndex = 9;
+            this.ninetySixKhz.TabIndex = 30;
             this.ninetySixKhz.TabStop = true;
             this.ninetySixKhz.Text = "96000";
             this.ninetySixKhz.UseVisualStyleBackColor = true;
@@ -365,7 +367,7 @@
             this.elevenKhz.Location = new System.Drawing.Point(71, 39);
             this.elevenKhz.Name = "elevenKhz";
             this.elevenKhz.Size = new System.Drawing.Size(55, 17);
-            this.elevenKhz.TabIndex = 2;
+            this.elevenKhz.TabIndex = 23;
             this.elevenKhz.TabStop = true;
             this.elevenKhz.Text = "11250";
             this.elevenKhz.UseVisualStyleBackColor = true;
@@ -378,7 +380,7 @@
             this.eightKhz.Location = new System.Drawing.Point(6, 39);
             this.eightKhz.Name = "eightKhz";
             this.eightKhz.Size = new System.Drawing.Size(49, 17);
-            this.eightKhz.TabIndex = 1;
+            this.eightKhz.TabIndex = 22;
             this.eightKhz.TabStop = true;
             this.eightKhz.Text = "8000";
             this.eightKhz.UseVisualStyleBackColor = true;
@@ -390,7 +392,7 @@
             this.textBox2.Location = new System.Drawing.Point(6, 15);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(117, 20);
-            this.textBox2.TabIndex = 0;
+            this.textBox2.TabIndex = 21;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
@@ -401,7 +403,7 @@
             this.twelweKhz.Location = new System.Drawing.Point(6, 58);
             this.twelweKhz.Name = "twelweKhz";
             this.twelweKhz.Size = new System.Drawing.Size(55, 17);
-            this.twelweKhz.TabIndex = 6;
+            this.twelweKhz.TabIndex = 24;
             this.twelweKhz.TabStop = true;
             this.twelweKhz.Text = "12000";
             this.twelweKhz.UseVisualStyleBackColor = true;
@@ -414,7 +416,7 @@
             this.twentyTwoKhz.Location = new System.Drawing.Point(71, 58);
             this.twentyTwoKhz.Name = "twentyTwoKhz";
             this.twentyTwoKhz.Size = new System.Drawing.Size(55, 17);
-            this.twentyTwoKhz.TabIndex = 3;
+            this.twentyTwoKhz.TabIndex = 25;
             this.twentyTwoKhz.TabStop = true;
             this.twentyTwoKhz.Text = "22050";
             this.twentyTwoKhz.UseVisualStyleBackColor = true;
@@ -427,7 +429,7 @@
             this.twentyFourKhz.Location = new System.Drawing.Point(6, 77);
             this.twentyFourKhz.Name = "twentyFourKhz";
             this.twentyFourKhz.Size = new System.Drawing.Size(55, 17);
-            this.twentyFourKhz.TabIndex = 7;
+            this.twentyFourKhz.TabIndex = 26;
             this.twentyFourKhz.TabStop = true;
             this.twentyFourKhz.Text = "24000";
             this.twentyFourKhz.UseVisualStyleBackColor = true;
@@ -440,7 +442,7 @@
             this.fourtyFourKhz.Location = new System.Drawing.Point(71, 77);
             this.fourtyFourKhz.Name = "fourtyFourKhz";
             this.fourtyFourKhz.Size = new System.Drawing.Size(55, 17);
-            this.fourtyFourKhz.TabIndex = 4;
+            this.fourtyFourKhz.TabIndex = 27;
             this.fourtyFourKhz.TabStop = true;
             this.fourtyFourKhz.Text = "44100";
             this.fourtyFourKhz.UseVisualStyleBackColor = true;
@@ -453,7 +455,7 @@
             this.fourtyEightKhz.Location = new System.Drawing.Point(6, 96);
             this.fourtyEightKhz.Name = "fourtyEightKhz";
             this.fourtyEightKhz.Size = new System.Drawing.Size(55, 17);
-            this.fourtyEightKhz.TabIndex = 5;
+            this.fourtyEightKhz.TabIndex = 28;
             this.fourtyEightKhz.TabStop = true;
             this.fourtyEightKhz.Text = "48000";
             this.fourtyEightKhz.UseVisualStyleBackColor = true;
@@ -466,7 +468,7 @@
             this.eightyEightKhz.Location = new System.Drawing.Point(71, 96);
             this.eightyEightKhz.Name = "eightyEightKhz";
             this.eightyEightKhz.Size = new System.Drawing.Size(55, 17);
-            this.eightyEightKhz.TabIndex = 8;
+            this.eightyEightKhz.TabIndex = 29;
             this.eightyEightKhz.TabStop = true;
             this.eightyEightKhz.Text = "88200";
             this.eightyEightKhz.UseVisualStyleBackColor = true;
@@ -478,7 +480,7 @@
             this.saveButton.Location = new System.Drawing.Point(270, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(40, 23);
-            this.saveButton.TabIndex = 7;
+            this.saveButton.TabIndex = 1;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -494,7 +496,7 @@
             this.checkBox1.Location = new System.Drawing.Point(7, 103);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(82, 17);
-            this.checkBox1.TabIndex = 8;
+            this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "Swap beats";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -502,19 +504,19 @@
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(97, 119);
+            this.textBox3.Location = new System.Drawing.Point(105, 119);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(64, 20);
-            this.textBox3.TabIndex = 9;
+            this.textBox3.Size = new System.Drawing.Size(56, 20);
+            this.textBox3.TabIndex = 6;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 103);
+            this.label1.Location = new System.Drawing.Point(102, 103);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 39;
             this.label1.Text = "BPM";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
@@ -525,7 +527,7 @@
             this.swapButton.Location = new System.Drawing.Point(164, 149);
             this.swapButton.Name = "swapButton";
             this.swapButton.Size = new System.Drawing.Size(62, 36);
-            this.swapButton.TabIndex = 11;
+            this.swapButton.TabIndex = 8;
             this.swapButton.Text = "Swap!";
             this.swapButton.UseVisualStyleBackColor = true;
             this.swapButton.Click += new System.EventHandler(this.swapButton_Click);
@@ -533,53 +535,28 @@
             // offsetText
             // 
             this.offsetText.Enabled = false;
-            this.offsetText.Location = new System.Drawing.Point(97, 163);
+            this.offsetText.Location = new System.Drawing.Point(105, 163);
             this.offsetText.Name = "offsetText";
-            this.offsetText.Size = new System.Drawing.Size(64, 20);
-            this.offsetText.TabIndex = 12;
+            this.offsetText.Size = new System.Drawing.Size(56, 20);
+            this.offsetText.TabIndex = 7;
             this.offsetText.Text = "0";
             this.offsetText.TextChanged += new System.EventHandler(this.offsetText_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 147);
+            this.label2.Location = new System.Drawing.Point(102, 145);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 13;
+            this.label2.TabIndex = 40;
             this.label2.Text = "Offset (sec)";
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(22, 123);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(61, 17);
-            this.radioButton1.TabIndex = 14;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "1 and 3";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(22, 144);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(61, 17);
-            this.radioButton2.TabIndex = 15;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "2 and 4";
-            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // about
             // 
             this.about.Location = new System.Drawing.Point(311, 5);
             this.about.Name = "about";
             this.about.Size = new System.Drawing.Size(54, 23);
-            this.about.TabIndex = 16;
+            this.about.TabIndex = 34;
             this.about.Text = "About";
             this.about.UseVisualStyleBackColor = true;
             this.about.Click += new System.EventHandler(this.about_Click);
@@ -591,22 +568,72 @@
             this.reverse.Location = new System.Drawing.Point(7, 168);
             this.reverse.Name = "reverse";
             this.reverse.Size = new System.Drawing.Size(66, 17);
-            this.reverse.TabIndex = 17;
+            this.reverse.TabIndex = 4;
             this.reverse.Text = "Reverse";
             this.reverse.UseVisualStyleBackColor = true;
             this.reverse.CheckedChanged += new System.EventHandler(this.Reverse_CheckedChanged);
             this.reverse.Click += new System.EventHandler(this.Reverse_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Enabled = false;
+            this.numericUpDown1.Location = new System.Drawing.Point(23, 133);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.ReadOnly = true;
+            this.numericUpDown1.Size = new System.Drawing.Size(27, 20);
+            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.NumericUpDown1_ValueChanged);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Enabled = false;
+            this.numericUpDown2.Location = new System.Drawing.Point(61, 133);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.ReadOnly = true;
+            this.numericUpDown2.Size = new System.Drawing.Size(27, 20);
+            this.numericUpDown2.TabIndex = 4;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.NumericUpDown2_ValueChanged_1);
             // 
             // BeatSwapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 190);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.reverse);
             this.Controls.Add(this.previewButton);
             this.Controls.Add(this.about);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.offsetText);
             this.Controls.Add(this.swapButton);
@@ -632,6 +659,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -678,11 +707,11 @@
         private System.Windows.Forms.Button swapButton;
         private System.Windows.Forms.TextBox offsetText;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button about;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox reverse;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 

@@ -18,6 +18,8 @@ namespace BeatSwapper
         byte[] originalFile;
         byte[] swappedFile;
         byte[] reversedFile = null;
+        decimal prevValue1 = 2;
+        decimal prevValue2 = 4;
         SoundPlayer preview;
 
         string freq;
@@ -224,6 +226,7 @@ namespace BeatSwapper
                 checkBox1.Checked = false;
                 reverse.Checked = false;
                 swappedFile = null;
+                checkBox1.Focus();
             }
         }
 
@@ -235,6 +238,7 @@ namespace BeatSwapper
             if (playing == null)
             {
                 MessageBox.Show("You didn't swapped beats!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                swapButton.Focus();
                 return;
             }
             if (Convert.ToInt32(freq) < 1000)
@@ -247,6 +251,7 @@ namespace BeatSwapper
             if(channels > 2)
             {
                 MessageBox.Show("This application can't preview track with 3+ channels! You can only save it!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                saveButton.Focus();
                 return;
             }
             if (!checkBox1.Checked && !reverse.Checked)
@@ -257,8 +262,10 @@ namespace BeatSwapper
             else if(checkBox1.Checked && !reverse.Checked)
             {
                 checkBox1.Enabled = false;
-                radioButton1.Enabled = false;
-                radioButton2.Enabled = false;
+                //radioButton1.Enabled = false;
+                //radioButton2.Enabled = false;
+                numericUpDown2.Enabled = false;
+                numericUpDown1.Enabled = false;
                 textBox3.Enabled = false;
                 offsetText.Enabled = false;
                 swapButton.Enabled = false;
@@ -277,6 +284,7 @@ namespace BeatSwapper
                 preview.Play();
             }
             clearram();
+            stopPreview.Focus();
         }
 
         private void stopPreview_Click(object sender, EventArgs e)
@@ -285,8 +293,10 @@ namespace BeatSwapper
             if(checkBox1.Checked && !reverse.Checked)
             {
                 checkBox1.Enabled = true;
-                radioButton1.Enabled = true;
-                radioButton2.Enabled = true;
+                //radioButton1.Enabled = true;
+                //radioButton2.Enabled = true;
+                numericUpDown2.Enabled = true;
+                numericUpDown1.Enabled = true;
                 textBox3.Enabled = true;
                 offsetText.Enabled = true;
                 swapButton.Enabled = true;
@@ -305,6 +315,7 @@ namespace BeatSwapper
             stopPreview.Enabled = false;
             previewButton.Enabled = true;
             clearram();
+            previewButton.Focus();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -506,24 +517,24 @@ namespace BeatSwapper
                 int i = 0;
                 do
                 {
-                    if (radioButton1.Checked)
+                    //if (radioButton1.Checked)
+                    //{
+                    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_" + numericUpDown2.Value + "_" + numericUpDown1.Value + "_" + i + extension))
                     {
-                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_1_3_" + i + extension))
-                        {
-                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_1_3_" + i + extension;
-                            break;
-                        }
-                        else i++;
+                        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_" + numericUpDown2.Value + "_" + numericUpDown1.Value + "_" + i + extension;
+                        break;
                     }
-                    else if (radioButton2.Checked)
-                    {
-                        if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_2_4_" + i + extension))
-                        {
-                            fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_2_4_" + i + extension;
-                            break;
-                        }
-                        else i++;
-                    }
+                    else i++;
+                    //}
+                    //else if (radioButton2.Checked)
+                    //{
+                    //    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_2_4_" + i + extension))
+                    //    {
+                    //        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_2_4_" + i + extension;
+                    //        break;
+                    //    }
+                    //    else i++;
+                    //}
                 } while (true);
                 //if (radioButton2.Checked) fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_2_4" + Path.GetExtension(textBox1.Text);
                 //else if (radioButton1.Checked) fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + "_swapped_1_3" + Path.GetExtension(textBox1.Text);
@@ -600,8 +611,10 @@ namespace BeatSwapper
                 enableButtons(false);
                 textBox3.Enabled = true;
                 offsetText.Enabled = true;
-                radioButton1.Enabled = true;
-                radioButton2.Enabled = true;
+                //radioButton1.Enabled = true;
+                //radioButton2.Enabled = true;
+                numericUpDown2.Enabled = true;
+                numericUpDown1.Enabled = true;
                 if (swappedFile == null) saveButton.Enabled = false;
                 textBox3_TextChanged(sender, e);
             }
@@ -610,8 +623,10 @@ namespace BeatSwapper
                 enableButtons(true);
                 textBox3.Enabled = false;
                 offsetText.Enabled = false;
-                radioButton1.Enabled = false;
-                radioButton2.Enabled = false;
+                //radioButton1.Enabled = false;
+                //radioButton2.Enabled = false;
+                numericUpDown2.Enabled = false;
+                numericUpDown1.Enabled = false;
                 swapButton.Enabled = false;
                 saveButton.Enabled = true;
             }
@@ -634,11 +649,13 @@ namespace BeatSwapper
             if(float.TryParse(textBox3.Text, out checkBPM) == false)
             {
                 MessageBox.Show("Invalid BPM! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox3.Focus();
                 return;
             }
             if (float.TryParse(offsetText.Text, out checkBPM) == false)
             {
                 MessageBox.Show("Invalid offset! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                offsetText.Focus();
                 return;
             }
             textBox3.Enabled = false;
@@ -653,53 +670,105 @@ namespace BeatSwapper
             try
             {
                 ref byte[] workingBytes = ref originalFile;
-                if (reverse.Checked) workingBytes = ref reversedFile;
+                if(reverse.Checked) workingBytes = ref reversedFile;
                 float bpm = Convert.ToSingle(textBox3.Text);
                 swappedFile = new byte[workingBytes.Length];
                 float bps = bpm / 60;
                 int swapBytes = Convert.ToInt32((1 / bps) * bytesPerSecond);
                 while (true)
                 {
-                    if (swapBytes % (bitDepth * channels / 8) != 0) swapBytes--;
-                    else break;
+                    if (swapBytes % (bitDepth * channels / 8) == 0) break;
+                    else if (swapBytes % (bitDepth * channels / 8) <= 4) swapBytes--;
+                    else if (swapBytes % (bitDepth * channels / 8) > 4) swapBytes++;
                 }
                 int offset = Convert.ToInt32(Convert.ToSingle(offsetText.Text) * bytesPerSecond);
-                int blocks = (dataSize / swapBytes) - 4;
+                int blocks = (dataSize / swapBytes) - (int)Math.Ceiling((decimal)offset / swapBytes);
+                blocks = blocks - (blocks % 4);
                 for (int i = 0; i < 44 + dataStartOffset; i++)
                 {
                     swappedFile[i] = workingBytes[i];
                 }
-                for (int i = 44 + dataStartOffset; i < offset  + 44 + dataStartOffset; i++)
+                for (int i = 44 + dataStartOffset; i < offset + 44 + dataStartOffset; i++)
                 {
                     swappedFile[i] = workingBytes[i];
                 }
-                for (int i = 0; i < blocks - (offset / swapBytes); i += 4)
+                for (int i = 0; i < blocks; i += 4)
                 {
-                    if (radioButton1.Checked)
+                    if ((numericUpDown1.Value == 1 && numericUpDown2.Value == 3) || (numericUpDown1.Value == 3 && numericUpDown2.Value == 1))
                     {
                         for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
                         {
-                            swappedFile[r] = workingBytes[r + swapBytes + swapBytes];
-                            swappedFile[r + swapBytes + swapBytes] = workingBytes[r];
+                            swappedFile[r] = workingBytes[r + swapBytes * 2];
+                            swappedFile[r + swapBytes * 2] = workingBytes[r];
                             swappedFile[r + swapBytes] = workingBytes[r + swapBytes];
-                            swappedFile[r + swapBytes + swapBytes + swapBytes] = workingBytes[r + swapBytes + swapBytes + swapBytes];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r + swapBytes * 3];
                         }
                     }
-                    else if (radioButton2.Checked)
+                    else if ((numericUpDown1.Value == 2 && numericUpDown2.Value == 4) || (numericUpDown1.Value == 4 && numericUpDown2.Value == 2))
                     {
                         for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
                         {
-                            swappedFile[r + swapBytes] = workingBytes[r + swapBytes + swapBytes + swapBytes];
-                            swappedFile[r + swapBytes + swapBytes + swapBytes] = workingBytes[r + swapBytes];
+                            swappedFile[r + swapBytes] = workingBytes[r + swapBytes * 3];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r + swapBytes];
                             swappedFile[r] = workingBytes[r];
-                            swappedFile[r + swapBytes + swapBytes] = workingBytes[r + swapBytes + swapBytes];
+                            swappedFile[r + swapBytes * 2] = workingBytes[r + swapBytes * 2];
+                        }
+                    }
+                    else if ((numericUpDown1.Value == 1 && numericUpDown2.Value == 2) || (numericUpDown1.Value == 2 && numericUpDown2.Value == 1))
+                    {
+                        for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r] = workingBytes[r + swapBytes];
+                            swappedFile[r + swapBytes] = workingBytes[r];
+                            swappedFile[r + swapBytes * 2] = workingBytes[r + swapBytes * 2];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r + swapBytes * 3];
+                        }
+                    }
+                    else if ((numericUpDown1.Value == 1 && numericUpDown2.Value == 4) || (numericUpDown1.Value == 4 && numericUpDown2.Value == 1))
+                    {
+                        for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r] = workingBytes[r + swapBytes * 3];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r];
+                            swappedFile[r + swapBytes * 2] = workingBytes[r + swapBytes * 2];
+                            swappedFile[r + swapBytes] = workingBytes[r + swapBytes];
+                        }
+                    }
+                    else if ((numericUpDown1.Value == 2 && numericUpDown2.Value == 3) || (numericUpDown1.Value == 3 && numericUpDown2.Value == 2))
+                    {
+                        for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r + swapBytes] = workingBytes[r + swapBytes * 2];
+                            swappedFile[r + swapBytes * 2] = workingBytes[r + swapBytes];
+                            swappedFile[r] = workingBytes[r];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r + swapBytes * 3];
+                        }
+                    }
+                    else if ((numericUpDown1.Value == 3 && numericUpDown2.Value == 4) || (numericUpDown1.Value == 4 && numericUpDown2.Value == 3))
+                    {
+                        for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r + swapBytes * 2] = workingBytes[r + swapBytes * 3];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r + swapBytes * 2];
+                            swappedFile[r + swapBytes] = workingBytes[r + swapBytes];
+                            swappedFile[r] = workingBytes[r];
+                        }
+                    }
+                    else if ((numericUpDown1.Value == 1 && numericUpDown2.Value == 2) || (numericUpDown1.Value == 2 && numericUpDown2.Value == 1))
+                    {
+                        for (int r = 44 + dataStartOffset + offset + (i * swapBytes); r < 44 + dataStartOffset + offset + swapBytes + (i * swapBytes); r++)
+                        {
+                            swappedFile[r] = workingBytes[r + swapBytes];
+                            swappedFile[r + swapBytes] = workingBytes[r];
+                            swappedFile[r + swapBytes * 2] = workingBytes[r + swapBytes * 2];
+                            swappedFile[r + swapBytes * 3] = workingBytes[r + swapBytes * 3];
                         }
                     }
                 }
-                for (int i = 44 + dataStartOffset + offset + (blocks * swapBytes) - ((offset / swapBytes) * swapBytes); i < workingBytes.Length; i++)
-                {
-                    swappedFile[i] = workingBytes[i];
-                }
+                    for (int i = 44 + dataStartOffset + offset + (blocks * swapBytes); i < workingBytes.Length; i++)
+                    {
+                        swappedFile[i] = workingBytes[i];
+                    }
             }
             catch
             {
@@ -715,6 +784,7 @@ namespace BeatSwapper
             saveButton.Enabled = true;
             reverse.Enabled = true;
             clearram();
+            previewButton.Focus();
             //radioButton1.Enabled = true;
             //radioButton2.Enabled = true;            
         }
@@ -761,8 +831,10 @@ namespace BeatSwapper
             if (radioEnabled)
             {
                 swapButton.Enabled = false;
-                radioButton1.Enabled = false;
-                radioButton2.Enabled = false;
+                //radioButton1.Enabled = false;
+                //radioButton2.Enabled = false;
+                numericUpDown2.Enabled = false;
+                numericUpDown1.Enabled = false;
                 textBox3.Enabled = false;
                 offsetText.Enabled = false;
             }
@@ -815,8 +887,10 @@ namespace BeatSwapper
             previewButton.Enabled = true;
             if (radioEnabled)
             {
-                radioButton1.Enabled = true;
-                radioButton2.Enabled = true;
+                //radioButton1.Enabled = true;
+                //radioButton2.Enabled = true;
+                numericUpDown2.Enabled = true;
+                numericUpDown1.Enabled = true;
                 swapButton.Enabled = true;
                 textBox3.Enabled = true;
                 offsetText.Enabled = true;
@@ -829,6 +903,68 @@ namespace BeatSwapper
         private void Reverse_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("Hope I'll fix it soon! :p", "Not working :C");
+        }
+
+        private void NumericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            byte tempValue = (byte)prevValue1;
+            if(numericUpDown1.Value < prevValue1)
+            {
+                if (numericUpDown1.Value == numericUpDown2.Value && numericUpDown1.Value != 1)
+                {
+                    prevValue1 = numericUpDown1.Value;
+                    numericUpDown1.Value--;
+                }
+                else if (numericUpDown1.Value == 1 && numericUpDown1.Value == numericUpDown2.Value) numericUpDown1.Value++;
+                else prevValue1 = numericUpDown1.Value;
+            }
+            else if(numericUpDown1.Value > prevValue1)
+            {
+                if (numericUpDown1.Value == numericUpDown2.Value && numericUpDown1.Value != 4)
+                {
+                    prevValue1 = numericUpDown1.Value;
+                    numericUpDown1.Value++;
+                }
+                else if (numericUpDown1.Value == 4 && numericUpDown1.Value == numericUpDown2.Value) numericUpDown1.Value--;
+                else prevValue1 = numericUpDown1.Value;
+            }
+            if (numericUpDown1.Value != tempValue) swappedFile = null;
+        }
+
+        private void NumericUpDown2_ValueChanged_1(object sender, EventArgs e)
+        {
+            byte tempValue = (byte)prevValue2;
+            if (numericUpDown2.Value < prevValue2)
+            {
+                if (numericUpDown2.Value == numericUpDown1.Value && numericUpDown2.Value != 1)
+                {
+                    prevValue2 = numericUpDown2.Value;
+                    numericUpDown2.Value--;
+                }
+                else if (numericUpDown2.Value == 1 && numericUpDown2.Value == numericUpDown1.Value) numericUpDown2.Value++;
+                else prevValue2 = numericUpDown2.Value;
+            }
+            else if (numericUpDown2.Value > prevValue2)
+            {
+                if (numericUpDown2.Value == numericUpDown1.Value && numericUpDown2.Value != 4)
+                {
+                    prevValue2 = numericUpDown2.Value;
+                    numericUpDown2.Value++;
+                }
+                else if (numericUpDown2.Value == 4 && numericUpDown2.Value == numericUpDown1.Value) numericUpDown2.Value--;
+                else prevValue2 = numericUpDown2.Value;
+            }
+            if (numericUpDown2.Value != tempValue) swappedFile = null;
+        }
+
+        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
