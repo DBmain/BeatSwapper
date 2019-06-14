@@ -519,9 +519,9 @@ namespace BeatSwapper
                 {
                     //if (radioButton1.Checked)
                     //{
-                    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_" + numericUpDown2.Value + "_" + numericUpDown1.Value + "_" + i + extension))
+                    if (!File.Exists(Path.GetDirectoryName(textBox1.Text) + "\\" + Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_" + numericUpDown1.Value + "_" + numericUpDown2.Value + "_" + i + extension))
                     {
-                        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_" + numericUpDown2.Value + "_" + numericUpDown1.Value + "_" + i + extension;
+                        fileName = Path.GetFileNameWithoutExtension(textBox1.Text) + reversedName + "_swapped_" + numericUpDown1.Value + "_" + numericUpDown2.Value + "_" + i + extension;
                         break;
                     }
                     else i++;
@@ -650,12 +650,14 @@ namespace BeatSwapper
             {
                 MessageBox.Show("Invalid BPM! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBox3.Focus();
+                textBox3.SelectAll();
                 return;
             }
             if (float.TryParse(offsetText.Text, out checkBPM) == false)
             {
                 MessageBox.Show("Invalid offset! Try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 offsetText.Focus();
+                offsetText.SelectAll();
                 return;
             }
             textBox3.Enabled = false;
